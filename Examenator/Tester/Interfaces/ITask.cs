@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Examenator.Interfaces
 {
-    public interface ITask<T, K> : IEnumerable
+    public interface ITask : IEnumerable
     {
-        T Question { get; set; }
-        List<BaseAnswer<K>> Answers { get; set;}
+        string Question { get; set; }
+        List<BaseAnswer> Answers { get; set;}
     }
 }

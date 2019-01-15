@@ -9,5 +9,7 @@ namespace Examenator.Clases
 {
     public class Examen : BaseExamen
     {
+        public int AmountTask { get; set; }
+        public TimeSpan TimeExamen { get; set; } 
     }
 }

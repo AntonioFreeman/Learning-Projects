@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Examenator.Interfaces
 {
-    interface IExam<T,K> : IEnumerable
+    interface IExam : IEnumerable
     {
         string Subject { get; set; }
-        int AmountTask { get; set; }
-
-        List<BaseTask<T,K>> Tasks { get; set; }
     }
 }
