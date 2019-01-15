@@ -55,9 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Question.cs" />
-    <Compile Include="ModelViewTest.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="AbstractClases\BaseExamen.cs" />
+    <Compile Include="AbstractClases\BaseTask.cs" />
+    <Compile Include="Clases\Examen.cs" />
+    <Compile Include="Clases\TextAnswer.cs" />
+    <Compile Include="Clases\TextTask.cs" />
+    <Compile Include="Interfaces\IAnswer.cs" />
+    <Compile Include="Interfaces\IExam.cs" />
+    <Compile Include="Interfaces\ITask.cs" />
+    <Compile Include="ViewModels\ExamenViewModel.cs" />
+    <Compile Include="AbstractClases\BaseAnswer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,5 +104,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

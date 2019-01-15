@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Examenator.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tester
+namespace Examenator.AbstractClases
 {
-    public class Question : IEnumerable
+    public abstract class BaseTask<T, K> : ITask<T, K>
     {
-        private string textQuestion;
-        private List<string> answers;
-
-
+        public T Question { get; set; }
+        public List<BaseAnswer<K>> Answers { get; set; }
 
         public IEnumerator GetEnumerator()
         {
@@ -20,3 +19,5 @@ namespace Tester
         }
     }
 }
+
+
