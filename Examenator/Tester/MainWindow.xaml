@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Examenator"
         mc:Ignorable="d"
-        Title="Tester" Height="450" Width="800" Name="окно">
+        Title="Examenator" Height="450" Width="800" Name="окно">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

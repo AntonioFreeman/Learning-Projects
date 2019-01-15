@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.Clases
 {
-    public class Examen : BaseExamen<string, string>
+    public class Examen : BaseExamen
     {
     }
 }
