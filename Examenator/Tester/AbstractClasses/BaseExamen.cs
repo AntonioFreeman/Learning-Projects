@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClases
 {
-    public abstract class BaseExamen <T,K> : IExam <T,K>
+    public abstract class BaseExamen : IExam 
     {
         public string Subject { get; set; }
         public int AmountTask { get; set; }
 
-        public List<BaseTask<T, K>> Tasks { get; set; }
+        public List<BaseTask> Tasks { get; set; }
 
         public IEnumerator GetEnumerator()
         {

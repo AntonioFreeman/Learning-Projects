@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Examenator.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Examenator.Interfaces;
 
-namespace Examenator
+namespace Examenator.AbstractClases
 {
-    public abstract class BaseAnswer<T> : IAnswer<T>
+    public abstract class BaseTask : ITask
     {
-        public bool Correct { get; set ; }
-        public bool Cheked { get; set; }
-        public T ValueAnswer { get ; set ; }
+        public string Question { get; set; }
+        public List<BaseAnswer> Answers { get; set; }
 
         public IEnumerator GetEnumerator()
         {
@@ -20,3 +19,5 @@ namespace Examenator
         }
     }
 }
+
+

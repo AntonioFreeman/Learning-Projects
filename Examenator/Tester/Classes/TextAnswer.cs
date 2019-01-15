@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Examenator.Clases
 {
-    public class TextAnswer : BaseAnswer<string>
+    public class TextAnswer : BaseAnswer
     {
+        public string ValueAnswer { get; set; }
     }
 }
