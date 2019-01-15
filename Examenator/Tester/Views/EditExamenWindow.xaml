@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Examenator.Views"
         mc:Ignorable="d"
-        Title="EditExamenWindow" Height="450" Width="800">
+        Title="EditExamenWindow" Height="458.793" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="149*"/>
+            <ColumnDefinition Width="398*"/>
+            <ColumnDefinition Width="245*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="125*"/>
+                <ColumnDefinition Width="518*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" Height="19" Margin="10,10,0,0" TextWrapping="Wrap" Text="Название экзамена:" VerticalAlignment="Top" Width="114"/>
+            <TextBox HorizontalAlignment="Left" Height="19" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1"/>
+            <TextBlock HorizontalAlignment="Right" Margin="0,10,5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="46"><Run Text="Вопрос"/><Run Text=":"/></TextBlock>
+            <TextBox HorizontalAlignment="Left" Height="19" Margin="0,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="1"/>
+            <TextBox HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="3"/>
+            <TextBox HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="4"/>
+            <TextBox HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="5"/>
+            <TextBox HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="6"/>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="Варианты ответов" VerticalAlignment="Center" RenderTransformOrigin="1.976,0.365" Margin="209,12" Height="16" Width="100"/>
+            <CheckBox  HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox  HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox  HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox  HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <Button Content="Сохранить изменения" Grid.Column="1" HorizontalAlignment="Left" Margin="355,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140" Height="20"/>
+            <Button Content="Добавить вопрос" Grid.Column="1" HorizontalAlignment="Left" Margin="209,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140
+                    " RenderTransformOrigin="0.353,-0.673" Height="20"/>
+            <Button Content="Удалить вопрос" Grid.Column="1" HorizontalAlignment="Left" Margin="64,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140                     " RenderTransformOrigin="0.353,-0.673" Height="20"/>
+            <Button Content="Сохранить экзамен" Grid.Column="1" HorizontalAlignment="Left" Margin="355,11,0,10" Grid.Row="8" VerticalAlignment="Center" Width="140" Height="20"/>
+            <TextBlock HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="Верный ответ" VerticalAlignment="Center"/>
+
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="49,10,0,0" TextWrapping="Wrap" Text="Вопросы:" VerticalAlignment="Top"/>
+        <ListBox HorizontalAlignment="Left" Height="387" Margin="10,31,0,0" VerticalAlignment="Top" Width="129" SelectionChanged="ListBox_SelectionChanged"/>
+
     </Grid>
 </Window>

@@ -23,5 +23,6 @@ namespace Examenator.Views
         {
             InitializeComponent();
         }
+
     }
 }
