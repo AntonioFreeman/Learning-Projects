@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examenator.Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace Examenator.ViewModels
 {
-    class EditExamenViewModel
+    public class EditExamenViewModel
     {
+        public EditExamenViewModel(Examen examen)
+        {
+
+        }
     }
 }

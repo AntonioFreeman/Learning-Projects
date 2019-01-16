@@ -73,6 +73,7 @@
     <Compile Include="AbstractClasses\BaseExamen.cs" />
     <Compile Include="AbstractClasses\BaseTask.cs" />
     <Compile Include="Classes\Examen.cs" />
+    <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\TextAnswer.cs" />
     <Compile Include="Classes\Task.cs" />
     <Compile Include="Interfaces\IAnswer.cs" />

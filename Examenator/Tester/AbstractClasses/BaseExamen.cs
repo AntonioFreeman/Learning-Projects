@@ -18,5 +18,10 @@ namespace Examenator.AbstractClases
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return Subject.ToString();
+        }
     }
 }

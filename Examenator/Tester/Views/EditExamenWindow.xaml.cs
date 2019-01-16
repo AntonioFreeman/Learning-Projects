@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Examenator.Clases;
+using Examenator.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,13 @@ namespace Examenator.Views
     /// </summary>
     public partial class EditExamenWindow : Window
     {
-        public EditExamenWindow()
-        {
+        public Examen Examen { get; set; }
+
+        public EditExamenWindow(Examen ex)
+        {            
             InitializeComponent();
+            Examen = ex;
+            this.DataContext = new EditExamenViewModel(Examen);
         }
 
     }

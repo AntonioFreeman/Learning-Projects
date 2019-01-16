@@ -10,15 +10,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="38*" />
             <RowDefinition Height="117*" />
-            <RowDefinition Height="159*" />
-            <RowDefinition Height="105*" />
+            <RowDefinition Height="179*" />
+            <RowDefinition Height="85*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="559*" />
             <ColumnDefinition Width="233*" />
         </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Доступные экзамены:" VerticalAlignment="Center"  Grid.Row="0" RenderTransformOrigin="0.571,-1.699" Margin="212,10,139,5" Width="208" Height="23"/>
-        <ListBox ItemsSource="{Binding }" Height="371"  Grid.Row="1" VerticalAlignment="Top" Grid.RowSpan="3" Margin="10,0" SelectionChanged="ListBox_SelectionChanged"/>
+        <ListBox ItemsSource="{Binding Examens}" SelectedItem="{Binding SelectedExamen}" Height="371"  Grid.Row="1" VerticalAlignment="Top" Grid.RowSpan="3" Margin="10,0" SelectionChanged="ListBox_SelectionChanged"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Параметры:" VerticalAlignment="Center" Height="20" Margin="73,8,84,10" Width="76"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Колличество вопросов" VerticalAlignment="Top" Width="158" Height="19" Margin="33,5,42,0"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="34,29,0,0" Grid.Row="1" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="37"/>
@@ -26,8 +26,9 @@
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="34,81,0,0" Grid.Row="1" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.463,-0.424"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="76,85,0,0" Grid.Row="1" TextWrapping="Wrap" Text="минут" VerticalAlignment="Top" Height="19" Width="39"/>
         <Button Content="Начать экзамен" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="34,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
-        <Button Content="Создать экзамен" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="34,54,0,0" Grid.Row="2" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
+        <Button Command="{Binding AddExamenCommand}" Content="Создать экзамен" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="34,54,0,0" Grid.Row="2" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
         <Button Content="Изменить экзамен" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="34,97,0,0" Grid.Row="2" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
+        <Button Command="{Binding RemoveExamenCommand}" CommandParameter="{Binding SelectedExamen}" Content="Удалить экзамен" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="34,138,0,0" Grid.Row="2" VerticalAlignment="Top" Width="131" Click="Button_Click"/>
 
     </Grid>
 </Window>

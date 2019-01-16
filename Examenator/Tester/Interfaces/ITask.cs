@@ -9,6 +9,7 @@ namespace Examenator.Interfaces
 {
     public interface ITask : IEnumerable
     {
+        string NumberOfTask { get; set; }
         string Question { get; set; }
         List<BaseAnswer> Answers { get; set;}
     }
