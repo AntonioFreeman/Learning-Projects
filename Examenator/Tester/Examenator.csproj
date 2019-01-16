@@ -75,7 +75,7 @@
     <Compile Include="Classes\Examen.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\TextAnswer.cs" />
-    <Compile Include="Classes\Task.cs" />
+    <Compile Include="Classes\TextTask.cs" />
     <Compile Include="Interfaces\IAnswer.cs" />
     <Compile Include="Interfaces\IExam.cs" />
     <Compile Include="Interfaces\ITask.cs" />

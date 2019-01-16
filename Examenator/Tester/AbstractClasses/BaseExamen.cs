@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Examenator.AbstractClases
     {
         public string Subject { get; set; }
 
-        public List<BaseTask> Tasks { get; set; }
+        public ObservableCollection<BaseTask> Tasks { get; set; }
 
         public override string ToString()
         {

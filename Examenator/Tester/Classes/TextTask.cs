@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.Clases
 {
-    public class Task : BaseTask
+    public class TextTask : BaseTask
     {
     }
 }

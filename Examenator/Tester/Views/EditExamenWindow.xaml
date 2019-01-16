@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Examenator.Views"
         mc:Ignorable="d"
-        Title="EditExamenWindow" Height="458.793" Width="800">
+        Title="{Binding Subject}" Height="458.793" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="149*"/>
@@ -51,7 +51,7 @@
 
         </Grid>
         <TextBlock HorizontalAlignment="Left" Margin="49,10,0,0" TextWrapping="Wrap" Text="Вопросы:" VerticalAlignment="Top"/>
-        <ListBox HorizontalAlignment="Left" Height="387" Margin="10,31,0,0" VerticalAlignment="Top" Width="129" SelectionChanged="ListBox_SelectionChanged"/>
+        <ListBox ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask}" HorizontalAlignment="Left" Height="387" Margin="10,31,0,0" VerticalAlignment="Top" Width="129" SelectionChanged="ListBox_SelectionChanged"/>
 
     </Grid>
 </Window>
