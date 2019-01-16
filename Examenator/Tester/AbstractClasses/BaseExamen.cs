@@ -14,11 +14,6 @@ namespace Examenator.AbstractClases
 
         public List<BaseTask> Tasks { get; set; }
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
         public override string ToString()
         {
             return Subject.ToString();

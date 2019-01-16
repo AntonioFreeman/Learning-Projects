@@ -12,11 +12,6 @@ namespace Examenator.AbstractClases
     {
         public string Question { get; set; }
         public List<BaseAnswer> Answers { get; set; }
-
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

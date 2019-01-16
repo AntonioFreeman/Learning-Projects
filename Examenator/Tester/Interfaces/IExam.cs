@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.Interfaces
 {
-    interface IExam : IEnumerable
+    interface IExam 
     {
         string Subject { get; set; }
     }

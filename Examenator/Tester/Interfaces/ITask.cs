@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.Interfaces
 {
-    public interface ITask : IEnumerable
+    public interface ITask
     {
         string NumberOfTask { get; set; }
         string Question { get; set; }

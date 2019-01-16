@@ -1,5 +1,6 @@
 ﻿using Examenator.Clases;
 using Examenator.Classes;
+using Examenator.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,18 @@ namespace Examenator.ViewModels
         private int amountTasks;
         private TimeSpan timeTest;
 
+        private RelayCommand startExamenCommand;
+        public RelayCommand StartExamenCommand
+        {
+            get
+            {
+                return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
+                {
+                    new ExamenWindow(SelectedExamen);
+                }, (obj) => SelectedExamen != null));
+            }
+        }
+
         private RelayCommand addExamenCommand;
 
         public RelayCommand AddExamenCommand
@@ -29,8 +42,19 @@ namespace Examenator.ViewModels
                      Examen examen = new Examen();
                      Examens.Add(examen);
                      SelectedExamen = examen;
-                     new EditExamenViewModel(examen);
+                     new EditExamenWindow(examen);
                  }));
+            }
+        }
+        private RelayCommand editExamenCommand;
+        public RelayCommand EditExamenCommand
+        {
+            get
+            {
+                return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
+                {
+                    new EditExamenWindow(SelectedExamen);
+                }, (obj) => SelectedExamen != null));
             }
         }
 
@@ -113,7 +137,7 @@ namespace Examenator.ViewModels
             return new Examen();
         }
 
-        public void DeliteExamen()
+        public void DelеteExamen()
         {
 
         }

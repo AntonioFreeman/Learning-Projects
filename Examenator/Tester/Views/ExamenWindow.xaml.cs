@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examenator.Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Examenator.Views
     /// </summary>
     public partial class ExamenWindow : Window
     {
-        public ExamenWindow()
+        public ExamenWindow(Examen examen)
         {
             InitializeComponent();
         }

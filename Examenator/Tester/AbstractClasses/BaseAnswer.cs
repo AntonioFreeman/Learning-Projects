@@ -12,11 +12,5 @@ namespace Examenator
     {
         public bool Correct { get; set; }
         public bool Cheked { get; set; }
-
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

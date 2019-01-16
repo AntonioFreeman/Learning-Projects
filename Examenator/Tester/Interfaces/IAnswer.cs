@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.Interfaces
 {
-    public interface IAnswer : IEnumerable
+    public interface IAnswer 
     {
         bool Correct { get; set; }
         bool Cheked { get; set; }
