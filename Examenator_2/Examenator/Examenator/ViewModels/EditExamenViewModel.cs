@@ -31,6 +31,10 @@ namespace Examenator.ViewModels
             OnPropertyChanged("Answer_2");
             OnPropertyChanged("Answer_3");
             OnPropertyChanged("Answer_4");
+            OnPropertyChanged("CheckBox_1");
+            OnPropertyChanged("CheckBox_2");
+            OnPropertyChanged("CheckBox_3");
+            OnPropertyChanged("CheckBox_4");
         }
 
         public EditExamenViewModel(Examen examen)
@@ -107,6 +111,46 @@ namespace Examenator.ViewModels
             {
                 CurrentTask.Answers.ElementAt(3).ValueAnswer = value;
                 OnPropertyChanged("Answer_4");
+            }
+        }
+
+        public bool? CheckBox_1
+        {
+            get { return CurrentTask.Answers.ElementAt(0).Check; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(0).Check = (bool)value;
+                OnPropertyChanged("CheckBox_1");
+            }
+        }
+
+        public bool? CheckBox_2
+        {
+            get { return CurrentTask.Answers.ElementAt(1).Check; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(1).Check = (bool)value;
+                OnPropertyChanged("CheckBox_2");
+            }
+        }
+
+        public bool? CheckBox_3
+        {
+            get { return CurrentTask.Answers.ElementAt(2).Check; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(2).Check = (bool)value;
+                OnPropertyChanged("CheckBox_3");
+            }
+        }
+
+        public bool? CheckBox_4
+        {
+            get { return CurrentTask.Answers.ElementAt(3).Check; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(3).Check = (bool)value;
+                OnPropertyChanged("CheckBox_4");
             }
         }
 

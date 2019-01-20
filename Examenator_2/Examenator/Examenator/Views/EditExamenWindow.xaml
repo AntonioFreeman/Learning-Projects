@@ -38,10 +38,10 @@
             <TextBox Text="{Binding Path=Answer_3,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="5"/>
             <TextBox Text="{Binding Path=Answer_4,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="6"/>
             <TextBlock Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="Варианты ответов" VerticalAlignment="Center" RenderTransformOrigin="1.976,0.365" Margin="209,12" Height="16" Width="100"/>
-            <CheckBox  HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <CheckBox  HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <CheckBox  HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <CheckBox  HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox IsChecked ="{Binding CheckBox_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox IsChecked="{Binding CheckBox_2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox IsChecked="{Binding CheckBox_3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
+            <CheckBox IsChecked="{Binding CheckBox_4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
             <Button Command="{Binding SaveEditTaskCommand}" CommandParameter="{Binding SelectedTask}" Content="Сохранить изменения" Grid.Column="1" HorizontalAlignment="Left" Margin="355,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140" Height="20"/>
             <Button Command="{Binding AddTaskCommand}" Content="Добавить вопрос" Grid.Column="1" HorizontalAlignment="Left" Margin="209,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140
                     " RenderTransformOrigin="0.353,-0.673" Height="20"/>
