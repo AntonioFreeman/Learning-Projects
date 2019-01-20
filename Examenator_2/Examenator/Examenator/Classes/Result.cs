@@ -8,6 +8,7 @@ namespace Examenator.Classes
 {
     public class Result
     {
+        public TimeSpan TimeExecute { get; set; }
         public int CorrectAnswers { get; set; }
         public int UncorrectAnswers { get; set; }
     }

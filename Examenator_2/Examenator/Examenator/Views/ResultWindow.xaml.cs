@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Examenator.Classes;
+using Examenator.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +17,14 @@ using System.Windows.Shapes;
 namespace Examenator.Views
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for ResultWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class ResultWindow : Window
     {
-        public Window1()
+        public ResultWindow(Result result)
         {
             InitializeComponent();
+            DataContext = new ResultViewModel(result);
         }
     }
 }

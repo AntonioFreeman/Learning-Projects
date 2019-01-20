@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examenator.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,9 +10,12 @@ namespace Examenator.ViewModels
 {
     public class ResultViewModel : INotifyPropertyChanged
     {
-        public ResultViewModel()
+        public ResultViewModel(Result result)
         {
-
+            TimeExecute = result.TimeExecute;
+            CorrectAnswers = result.CorrectAnswers;
+            UncorrectAnswers = result.UncorrectAnswers;
+            CalculationEstimate();
         }
 
         private TimeSpan timeExecute;
@@ -60,10 +64,13 @@ namespace Examenator.ViewModels
 
         public void CalculationEstimate()
         {
-            double procent = 
-            Estimate
+            double procent = 0;
+            if ((correctAnswers > 0)||(uncorrectAnswers >0)) procent = correctAnswers / (correctAnswers + uncorrectAnswers);
+            if (procent < 0.55) Estimate = 2;
+            else if (procent < 0.7) Estimate = 3;
+            else if (procent < 0.85) Estimate = 4;
+            else Estimate = 5;
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")

@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Examenator.Views"
         mc:Ignorable="d"
-        Title="ExamenWindow" Height="450" Width="800">
+        Title="ExamenWindow" Height="400" Width="1000">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="117*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Вопрос №" VerticalAlignment="Center"  Width="81"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Center"  Width="81" Margin="81,2,0,2"/>
+        <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <CheckBox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <CheckBox Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Center"/>
+        <Button Content="Ответить" Grid.Column="1" HorizontalAlignment="Left" Height="39" Margin="10,10,0,-23" Grid.Row="6" VerticalAlignment="Top" Width="129"/>
     </Grid>
 </Window>
