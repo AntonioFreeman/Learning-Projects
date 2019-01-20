@@ -1,6 +1,8 @@
 ﻿using Examenator.AbstractClasses;
+using Examenator.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,6 @@ namespace Examenator.Interfaces
     {
         string Title { get; set; }
         string Question { get; set; }
-        List<BaseAnswer> Answers { get; set; }
+        ObservableCollection<TextAnswer> Answers { get; set; }
     }
 }

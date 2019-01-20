@@ -14,21 +14,23 @@ namespace Examenator.ViewModels
     {
         
         public Examen CurrentExamen;
-
         public void UpdateCurrentTask(TextTask task)
         {
-            TextTask CurrentTask = new TextTask();
-            CurrentTask.Question = task.Question ?? "";
-            CurrentTask.Title = task.Title ?? "";
+            var currentTask = new TextTask();
+            currentTask.Question = task.Question ?? "";
+            currentTask.Title = task.Title ?? "";
             for (int i = 0; i < 4; i++) 
             {
-                CurrentTask.Answers.ElementAt(i).Check = task.Answers.ElementAt(i).Check;
-
-                item.Correct = answer.Correct;
-                item.ValueAnswer = answer.ValueAnswer ?? "";
-                CurrentTask.Answers.Add(item);
-              
+                currentTask.Answers.ElementAt(i).Check = task.Answers.ElementAt(i).Check;
+                currentTask.Answers.ElementAt(i).Correct = task.Answers.ElementAt(i).Correct;
+                currentTask.Answers.ElementAt(i).ValueAnswer = task.Answers.ElementAt(i).ValueAnswer;              
             };
+            CurrentTask = currentTask;
+            OnPropertyChanged("CurrentTask");
+            OnPropertyChanged("Answer_1");
+            OnPropertyChanged("Answer_2");
+            OnPropertyChanged("Answer_3");
+            OnPropertyChanged("Answer_4");
         }
 
         public EditExamenViewModel(Examen examen)
@@ -68,6 +70,46 @@ namespace Examenator.ViewModels
         //    }
         //}
 
+        public string Answer_1
+        {
+            get { return CurrentTask.Answers.ElementAt(0).ValueAnswer; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(0).ValueAnswer = value;
+                OnPropertyChanged("Answer_1");
+            }
+        }
+
+        public string Answer_2
+        {
+            get { return CurrentTask.Answers.ElementAt(1).ValueAnswer; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(1).ValueAnswer = value;
+                OnPropertyChanged("Answer_2");
+            }
+        }
+
+        public string Answer_3
+        {
+            get { return CurrentTask.Answers.ElementAt(2).ValueAnswer; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(2).ValueAnswer = value;
+                OnPropertyChanged("Answer_3");
+            }
+        }
+
+        public string Answer_4
+        {
+            get { return CurrentTask.Answers.ElementAt(3).ValueAnswer; }
+            set
+            {
+                CurrentTask.Answers.ElementAt(3).ValueAnswer = value;
+                OnPropertyChanged("Answer_4");
+            }
+        }
+
         private TextTask currentTask;
         public TextTask CurrentTask
         {
@@ -78,8 +120,6 @@ namespace Examenator.ViewModels
                 OnPropertyChanged("CurrentTask");
             }
         }
-
-
 
         private TextTask selectedTask;
         public TextTask SelectedTask
@@ -114,9 +154,10 @@ namespace Examenator.ViewModels
             {
                 return saveEditTaskCommand ?? (saveEditTaskCommand = new RelayCommand(obj =>
                 {
-                    TextTask task = obj as TextTask;
                     {
-                        task = CurrentTask;
+                        int index = CurrentExamen.Tasks.IndexOf(SelectedTask);
+                        CurrentExamen.Tasks.Remove(SelectedTask);
+                        CurrentExamen.Tasks.Insert(index, CurrentTask);
                     }
                 }, (obj) => SelectedTask != null));
             }

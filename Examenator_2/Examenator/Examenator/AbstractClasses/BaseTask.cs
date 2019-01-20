@@ -1,6 +1,8 @@
-﻿using Examenator.Interfaces;
+﻿using Examenator.Classes;
+using Examenator.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -32,8 +34,8 @@ namespace Examenator.AbstractClasses
             }
         }
 
-        private List<BaseAnswer> answers;
-        public List<BaseAnswer> Answers
+        private ObservableCollection<TextAnswer> answers;
+        public ObservableCollection<TextAnswer> Answers
         {
             get { return answers; }
             set
