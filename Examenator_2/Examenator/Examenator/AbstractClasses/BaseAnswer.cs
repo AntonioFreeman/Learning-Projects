@@ -10,6 +10,7 @@ namespace Examenator.AbstractClasses
 {
     public abstract class BaseAnswer : IAnswer
     {
+
         private bool correct;
         public bool Correct
         {
@@ -31,6 +32,18 @@ namespace Examenator.AbstractClasses
                 OnPropertyChanged("Check");
             }
         }
+         public virtual void Assign(BaseAnswer answer)
+            {                
+                Correct = answer.Correct;
+                Check = answer.Check;
+            }
+
+         public virtual BaseAnswer Clone()
+            {
+                var cloned = (BaseAnswer) Activator.CreateInstance(GetType());
+                cloned.Assign(this);
+                return cloned;
+            }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
@@ -38,5 +51,7 @@ namespace Examenator.AbstractClasses
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
+
+       
     }
 }

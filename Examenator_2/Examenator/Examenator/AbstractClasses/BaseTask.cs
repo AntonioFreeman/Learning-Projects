@@ -50,6 +50,25 @@ namespace Examenator.AbstractClasses
             return Title;
         }
 
+        public virtual void Assign(BaseTask task)
+        {
+            Title = task.Title;
+            Question = task.Question;
+            var answers = new ObservableCollection<TextAnswer>();
+            foreach(var a in task.Answers)
+            {
+               if(a != null) answers.Add((TextAnswer)a.Clone());
+            }
+            Answers = answers;
+        }
+
+        public virtual BaseTask Clone()
+        {
+            var cloned = (BaseTask)Activator.CreateInstance(GetType());
+            cloned.Assign(this);
+            return cloned;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {

@@ -19,5 +19,18 @@ namespace Examenator.Classes
                 OnPropertyChanged("ValueAnswer");
             }
         }
+
+        override public void Assign(BaseAnswer answer)
+        {
+            base.Assign(answer);
+            ValueAnswer = ((TextAnswer)answer).ValueAnswer;
+        }
+
+        override public BaseAnswer Clone()
+        {
+            var cloned = (TextAnswer)Activator.CreateInstance(GetType());
+            cloned.Assign(this);
+            return cloned;
+        }
     }
 }

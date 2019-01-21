@@ -11,5 +11,19 @@ namespace Examenator.Classes
     {
         public int AmountTask { get; set; }
         public TimeSpan TimeExamen { get; set; }
+
+        override public void Assign(BaseExamen examen)
+        {
+            base.Assign(examen);
+            AmountTask = ((Examen)examen).AmountTask;
+            TimeExamen = ((Examen)examen).TimeExamen;
+        }
+
+        override public BaseExamen Clone()
+        {
+            var cloned = (Examen)Activator.CreateInstance(GetType());
+            cloned.Assign(this);
+            return cloned;
+        }
     }
 }

@@ -19,5 +19,18 @@ namespace Examenator.Classes
             Answers.Add(new TextAnswer() { ValueAnswer = "" } );
             Answers.Add(new TextAnswer() { ValueAnswer = "" } );
         }
+
+        override public void Assign(BaseTask task)
+        {
+            base.Assign(task);
+        }
+
+        override public BaseTask Clone()
+        {
+            var cloned = (TextTask)Activator.CreateInstance(GetType());
+            cloned.Assign(this);
+            return cloned;
+        }
+
     }
 }

@@ -14,11 +14,12 @@ namespace Examenator.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Examen> Examens { get; set; }
-        public EditExamenWindow editWindow;
+        public EditExamenWindow EditWindow;
+        public ExamenWindow ExamenWindow;
 
         private string title;
-        private int amountTasks;
-        private TimeSpan timeTest;
+        
+        
            
         private RelayCommand startExamenCommand;
         public RelayCommand StartExamenCommand
@@ -27,7 +28,8 @@ namespace Examenator.ViewModels
             {
                 return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
                 {
-                    new ExamenWindow(SelectedExamen);
+                    ExamenWindow = new ExamenWindow(SelectedExamen, AmountTasks, TimeExamen );
+                    ExamenWindow.Show();
                 }, (obj) => SelectedExamen != null));
             }
         }
@@ -45,8 +47,8 @@ namespace Examenator.ViewModels
                     examen.Tasks = new ObservableCollection<BaseTask>();
                     Examens.Add(examen);                  
                     SelectedExamen = examen;
-                    editWindow = new EditExamenWindow(examen);
-                    editWindow.Show();
+                    EditWindow = new EditExamenWindow(examen);
+                    EditWindow.Show();
                 }));
             }
         }
@@ -59,8 +61,8 @@ namespace Examenator.ViewModels
             {
                 return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
                 {
-                    editWindow = new EditExamenWindow(SelectedExamen);
-                    editWindow.Show();
+                    EditWindow = new EditExamenWindow(SelectedExamen);
+                    EditWindow.Show();
                 }, (obj) => SelectedExamen != null));
             }
         }
@@ -90,6 +92,8 @@ namespace Examenator.ViewModels
             set
             {
                 selectedExamen = value;
+                AmountTasks = selectedExamen.Tasks.Count;
+                TimeExamen = 60;
                 OnPropertyChanged("SelectedExamen");
             }
         }
@@ -104,23 +108,24 @@ namespace Examenator.ViewModels
             }
         }
 
-        public int AmountQuestions
+        private int amountTasks;
+        public int AmountTasks
         {
             get { return amountTasks; }
             set
             {
                 amountTasks = value;
-                OnPropertyChanged("AmountQuestions");
+                OnPropertyChanged("AmountTasks");
             }
         }
-
-        public TimeSpan TimeTest
+        private int timeExamen;
+        public int TimeExamen
         {
-            get { return timeTest; }
+            get { return timeExamen; }
             set
             {
-                timeTest = value;
-                OnPropertyChanged("TimeTest");
+                timeExamen = value;
+                OnPropertyChanged("TimeExamen");
             }
         }
 

@@ -29,6 +29,25 @@ namespace Examenator.AbstractClasses
         //        Subject.ToString();
         //}
 
+        public virtual void Assign(BaseExamen examen)
+        {
+            Subject = examen.Subject;
+
+            var tasks = new ObservableCollection<BaseTask>();
+            foreach (var e in examen.Tasks)
+            {
+                if (e != null) tasks.Add(e.Clone());
+            }
+            Tasks = tasks;
+        }
+
+        public virtual BaseExamen Clone()
+        {
+            var cloned = (BaseExamen)Activator.CreateInstance(GetType());
+            cloned.Assign(this);
+            return cloned;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {
