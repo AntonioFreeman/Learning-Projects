@@ -5,22 +5,57 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Examenator.ViewModels
 {
     public class ExamenViewModel: INotifyPropertyChanged
     {
         private int countTask = 1;
-        public Result Result { get; set; } 
+        public Result Result { get; set; }
+        int timeEndOfExamen;
+        public DispatcherTimer TimeExamen;
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+
 
         public ExamenViewModel(Examen examen, int amountTask, int timeExamen)
         {
             Subject = examen.Subject;
-            Result = new Result();
+            Result = new Result(amountTask);
             CreateExamen(examen, amountTask);
             CurrentTask = CurrentExamen.ElementAt(0);
             NumberTask = countTask.ToString();
+            timeEndOfExamen = timeExamen;
+            RunTimer();            
+        }
+        
+        public void RunTimer()
+        {
+            TimeExamen= new DispatcherTimer();
+            TimeExamen.Tick += new EventHandler(TimeExamen_Tick);
+            TimeExamen.Interval = new TimeSpan(0, 0, 1);
+            TimeExamen.Start();
+        }
+       
+        public void EndExamen()
+        {
+            TimeExamen.Stop();
+            Result.TimeExecute = new TimeSpan (hours, minutes, seconds);
+            var resultWindow = new ResultWindow(Result);
+            resultWindow.Show();
+        }
+
+        private void TimeExamen_Tick(object sender, EventArgs e)
+        {
+            seconds++;
+            if (seconds == 60) { minutes++; seconds = 0; }
+            if (minutes == 60) { hours++; minutes = 0; }
+            if (hours * 60 + minutes == timeEndOfExamen) EndExamen();
+            ElapsedTime = string.Format("Прошло времени: {0}:{1}:{2}", hours, minutes, seconds);
         }
 
         public void CreateExamen (Examen examen, int amountTask)
@@ -28,13 +63,14 @@ namespace Examenator.ViewModels
             Random random = new Random();
             CurrentExamen = new List<TextTask>();
             var list = new List<TextTask>();
+            var usedIndexes = new int[amountTask+1];
             for(int i = 0; i<amountTask; i++)
             {
-                int index;
-                index = random.Next(0, amountTask - 1);
-                //do index = random.Next(0, amountTask - 1);
-                //while (!list.Contains(examen.Tasks.ElementAt(index)));
-                list.Add((TextTask)examen.Tasks.ElementAt(index));
+                int index;                
+                do index = random.Next(1, amountTask+1);
+                while (usedIndexes.Contains(index));               
+                list.Add((TextTask)examen.Tasks.ElementAt(index - 1));
+                usedIndexes[index] = index;                
             }
             foreach(var t in list)
             {
@@ -63,8 +99,7 @@ namespace Examenator.ViewModels
 
                     if (countTask == CurrentExamen.Count)
                     {
-                        var resultWindow = new ResultWindow(Result);
-                        resultWindow.Show();
+                        EndExamen();
                     }
                     else
                     { 
@@ -89,6 +124,17 @@ namespace Examenator.ViewModels
             {
                 subject = value;
                 OnPropertyChanged("Subject");
+            }
+        }
+
+        private string elapsedTime;
+        public string ElapsedTime
+        {
+            get { return elapsedTime; }
+            set
+            {
+                elapsedTime = value;
+                OnPropertyChanged("ElapsedTime");
             }
         }
 

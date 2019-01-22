@@ -8,8 +8,14 @@ namespace Examenator.Classes
 {
     public class Result
     {
+        public int AmountTask { get; set; }
         public TimeSpan TimeExecute { get; set; }
         public int CorrectAnswers { get; set; }
         public int UncorrectAnswers { get; set; }
+
+        public Result(int amountTask)
+        {
+            AmountTask = amountTask;
+        }
     }
 }

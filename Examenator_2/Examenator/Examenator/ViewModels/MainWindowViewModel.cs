@@ -28,10 +28,20 @@ namespace Examenator.ViewModels
             {
                 return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
                 {
-                    ExamenWindow = new ExamenWindow(SelectedExamen, AmountTasks, TimeExamen );
+                    ExamenWindow = new ExamenWindow(SelectedExamen, AmountTasks, TimeExamen);
                     ExamenWindow.Show();
-                }, (obj) => SelectedExamen != null));
+                }, (obj) =>  (SelectedExamen != null) && termAmountTask() && termTimeExamen()));
             }
+        }
+
+        private bool termAmountTask()
+        {
+            return AmountTasks > 0 && AmountTasks <= SelectedExamen.Tasks.Count;
+        }
+
+        private bool termTimeExamen()
+        {
+            return TimeExamen > 0;
         }
 
         private RelayCommand addExamenCommand;
