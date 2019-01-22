@@ -26,12 +26,14 @@ namespace Examenator.ViewModels
         public void CreateExamen (Examen examen, int amountTask)
         {
             Random random = new Random();
+            CurrentExamen = new List<TextTask>();
             var list = new List<TextTask>();
             for(int i = 0; i<amountTask; i++)
             {
                 int index;
-                do index = random.Next(0, amountTask - 1);
-                while (!list.Contains(examen.Tasks.ElementAt(index)));
+                index = random.Next(0, amountTask - 1);
+                //do index = random.Next(0, amountTask - 1);
+                //while (!list.Contains(examen.Tasks.ElementAt(index)));
                 list.Add((TextTask)examen.Tasks.ElementAt(index));
             }
             foreach(var t in list)

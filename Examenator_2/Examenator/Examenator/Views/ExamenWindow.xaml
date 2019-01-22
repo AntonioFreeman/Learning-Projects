@@ -31,6 +31,6 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap" Text="{Binding Answer_2}" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" TextWrapping="Wrap" Text="{Binding Answer_3}" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap" Text="{Binding Answer_4}" VerticalAlignment="Center"/>
-        <Button Content="Ответить" Grid.Column="1" HorizontalAlignment="Left" Height="39" Margin="10,10,0,-23" Grid.Row="6" VerticalAlignment="Top" Width="129"/>
+        <Button Command="{Binding AnswerCommand}" Content="Ответить" Grid.Column="1" HorizontalAlignment="Left" Height="39" Margin="10,10,0,-23" Grid.Row="6" VerticalAlignment="Top" Width="129"/>
     </Grid>
 </Window>
