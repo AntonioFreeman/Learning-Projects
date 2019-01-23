@@ -10,8 +10,10 @@ namespace Examenator.ViewModels
 {
     public class ResultViewModel : INotifyPropertyChanged
     {
+        private int amountTask;
         public ResultViewModel(Result result)
         {
+            amountTask = result.AmountTask;
             TimeExecute = result.TimeExecute;
             CorrectAnswers = result.CorrectAnswers;
             UncorrectAnswers = result.UncorrectAnswers;
@@ -36,6 +38,7 @@ namespace Examenator.ViewModels
             set
             {
                 correctAnswers = value;
+                CalculationEstimate();
                 OnPropertyChanged("CorrectAnswers");
             }
         }
@@ -47,6 +50,7 @@ namespace Examenator.ViewModels
             set
             {
                 uncorrectAnswers = value;
+                CalculationEstimate();
                 OnPropertyChanged("UncorrectAnswers");
             }
         }
@@ -65,7 +69,7 @@ namespace Examenator.ViewModels
         public void CalculationEstimate()
         {
             double procent = 0;
-            if ((correctAnswers > 0)||(uncorrectAnswers >0)) procent = correctAnswers / (correctAnswers + uncorrectAnswers);
+            if ((correctAnswers > 0)||(uncorrectAnswers >0)) procent = correctAnswers / amountTask ;
             if (procent < 0.55) Estimate = 2;
             else if (procent < 0.7) Estimate = 3;
             else if (procent < 0.85) Estimate = 4;

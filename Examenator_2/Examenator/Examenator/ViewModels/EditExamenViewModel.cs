@@ -99,40 +99,40 @@ namespace Examenator.ViewModels
 
         public bool? CheckBox_1
         {
-            get { return CurrentTask.Answers.ElementAt(0).Check; }
+            get { return CurrentTask.Answers.ElementAt(0).Correct; }
             set
             {
-                CurrentTask.Answers.ElementAt(0).Check = (bool)value;
+                CurrentTask.Answers.ElementAt(0).Correct = (bool)value;
                 OnPropertyChanged("CheckBox_1");
             }
         }
 
         public bool? CheckBox_2
         {
-            get { return CurrentTask.Answers.ElementAt(1).Check; }
+            get { return CurrentTask.Answers.ElementAt(1).Correct; }
             set
             {
-                CurrentTask.Answers.ElementAt(1).Check = (bool)value;
+                CurrentTask.Answers.ElementAt(1).Correct = (bool)value;
                 OnPropertyChanged("CheckBox_2");
             }
         }
 
         public bool? CheckBox_3
         {
-            get { return CurrentTask.Answers.ElementAt(2).Check; }
+            get { return CurrentTask.Answers.ElementAt(2).Correct; }
             set
             {
-                CurrentTask.Answers.ElementAt(2).Check = (bool)value;
+                CurrentTask.Answers.ElementAt(2).Correct = (bool)value;
                 OnPropertyChanged("CheckBox_3");
             }
         }
 
         public bool? CheckBox_4
         {
-            get { return CurrentTask.Answers.ElementAt(3).Check; }
+            get { return CurrentTask.Answers.ElementAt(3).Correct; }
             set
             {
-                CurrentTask.Answers.ElementAt(3).Check = (bool)value;
+                CurrentTask.Answers.ElementAt(3).Correct = (bool)value;
                 OnPropertyChanged("CheckBox_4");
             }
         }
