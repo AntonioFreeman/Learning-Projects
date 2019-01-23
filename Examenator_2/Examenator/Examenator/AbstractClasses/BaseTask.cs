@@ -5,13 +5,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
+    [Serializable]
     public abstract class BaseTask : ITask
     {
+
         private string title;
         public string Title
         {
@@ -22,7 +25,7 @@ namespace Examenator.AbstractClasses
                 OnPropertyChanged("Title");
             }
         }
-
+        
         private string question;
         public string Question
         {
@@ -33,7 +36,7 @@ namespace Examenator.AbstractClasses
                 OnPropertyChanged("Question");
             }
         }
-
+        
         private ObservableCollection<TextAnswer> answers;
         public ObservableCollection<TextAnswer> Answers
         {
@@ -68,7 +71,7 @@ namespace Examenator.AbstractClasses
             cloned.Assign(this);
             return cloned;
         }
-
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {

@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
+    [Serializable]
     public abstract class BaseAnswer : IAnswer
     {
 
@@ -32,6 +34,7 @@ namespace Examenator.AbstractClasses
                 OnPropertyChanged("Check");
             }
         }
+
          public virtual void Assign(BaseAnswer answer)
             {                
                 Correct = answer.Correct;
@@ -44,14 +47,12 @@ namespace Examenator.AbstractClasses
                 cloned.Assign(this);
                 return cloned;
             }
-
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
-        }
-
-       
+        }      
     }
 }

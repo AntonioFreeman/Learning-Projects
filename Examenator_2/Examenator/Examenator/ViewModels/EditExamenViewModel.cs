@@ -17,14 +17,7 @@ namespace Examenator.ViewModels
         public void UpdateCurrentTask(TextTask task)
         {
             var currentTask = (TextTask)task.Clone();
-            //currentTask.Question = task.Question ?? "";
-            //currentTask.Title = task.Title ?? "";
-            //for (int i = 0; i < 4; i++) 
-            //{
-            //    currentTask.Answers.ElementAt(i).Check = task.Answers.ElementAt(i).Check;
-            //    currentTask.Answers.ElementAt(i).Correct = task.Answers.ElementAt(i).Correct;
-            //    currentTask.Answers.ElementAt(i).ValueAnswer = task.Answers.ElementAt(i).ValueAnswer;              
-            //};
+
             CurrentTask = currentTask;
             OnPropertyChanged("CurrentTask");
             OnPropertyChanged("Answer_1");
@@ -63,16 +56,6 @@ namespace Examenator.ViewModels
                 OnPropertyChanged("Tasks");
             }
         }
-
-        //public string Question
-        //{
-        //    get { return CurrentTask.Question; }
-        //    set
-        //    {
-        //        CurrentTask.Question = value;
-        //        OnPropertyChanged("Question");
-        //    }
-        //}
 
         public string Answer_1
         {

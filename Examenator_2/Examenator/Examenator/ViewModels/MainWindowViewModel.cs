@@ -13,14 +13,13 @@ namespace Examenator.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        public Loader Loader;
         public ObservableCollection<Examen> Examens { get; set; }
         public EditExamenWindow EditWindow;
         public ExamenWindow ExamenWindow;
 
         private string title;
-        
-        
-           
+                  
         private RelayCommand startExamenCommand;
         public RelayCommand StartExamenCommand
         {
@@ -82,7 +81,18 @@ namespace Examenator.ViewModels
                     }
                 }, (obj) => Examens.Count > 0));
             }
-        }       
+        }
+        private RelayCommand saveExamensCommand;
+        public RelayCommand SaveExamensCommand
+        {
+            get
+            {
+                return saveExamensCommand ?? (saveExamensCommand = new RelayCommand(obj =>
+                {
+                    Loader.SaveSerialisation(Examens);
+                }, (obj) => Examens.Count > 0));
+            }
+        }
 
         private Examen selectedExamen;
 
@@ -131,7 +141,11 @@ namespace Examenator.ViewModels
 
         public MainWindowViewModel()
         {
-            Examens = new ObservableCollection<Examen>();
+            Loader = new Loader();
+            try 
+                { Examens = Loader.LoadDeserialisation(); }
+            catch
+                { Examens = new ObservableCollection<Examen>(); }           
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

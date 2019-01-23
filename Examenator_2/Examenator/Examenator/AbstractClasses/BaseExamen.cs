@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
+    [Serializable]
     public abstract class BaseExamen : IExam
     {
         private string subject;
@@ -21,13 +23,6 @@ namespace Examenator.AbstractClasses
             } }
 
         public ObservableCollection<BaseTask> Tasks { get; set; }
-
-        //public override string ToString()
-        //{
-        //    if (Subject == null) return "";
-        //    return 
-        //        Subject.ToString();
-        //}
 
         public virtual void Assign(BaseExamen examen)
         {
@@ -47,7 +42,7 @@ namespace Examenator.AbstractClasses
             cloned.Assign(this);
             return cloned;
         }
-
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {
