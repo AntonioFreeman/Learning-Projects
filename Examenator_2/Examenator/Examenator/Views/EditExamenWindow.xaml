@@ -3,58 +3,90 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Examenator.Views"
+        xmlns:local="clr-namespace:Examenator.Classes"
         mc:Ignorable="d"
-        Title="{Binding Subject}" Height="450" Width="800">
+        Title="{Binding Subject}" Height="450" Width="800" MinHeight="450" MinWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="149*"/>
-            <ColumnDefinition Width="398*"/>
-            <ColumnDefinition Width="245*"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" Grid.ColumnSpan="2" >
+        <Grid Grid.Column="1" Grid.ColumnSpan="3" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="125*"/>
-                <ColumnDefinition Width="518*"/>
+                <ColumnDefinition Width="125"/>
+                <ColumnDefinition Width="517*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="43*"/>
-                <RowDefinition Height="42"/>
-                <RowDefinition Height="43*"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="28"/>
                 <RowDefinition Height="42*"/>
-                <RowDefinition Height="43*"/>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="42*"/>
+                <RowDefinition Height="42*"/>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="42*"/>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="42"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Left" Height="19" Margin="10,10,0,0" TextWrapping="Wrap" Text="Название экзамена:" VerticalAlignment="Top" Width="114"/>
             <TextBox Text="{Binding Path=Subject}" HorizontalAlignment="Left" Height="19" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1"/>
-            <TextBlock HorizontalAlignment="Right" Margin="0,10,5,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="46"><Run Text="Вопрос"/><Run Text=":"/></TextBlock>
-            <TextBox Text="{Binding Path=CurrentTask.Question,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="1"/>
-            <TextBox Text="{Binding Path=Answer_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="3"/>
-            <TextBox Text="{Binding Path=Answer_2,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="4"/>
-            <TextBox Text="{Binding Path=Answer_3,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="5"/>
-            <TextBox Text="{Binding Path=Answer_4,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="6"/>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="Варианты ответов" VerticalAlignment="Center" RenderTransformOrigin="1.976,0.365" Margin="209,12" Height="16" Width="100"/>
-            <CheckBox IsChecked ="{Binding CheckBox_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <CheckBox IsChecked="{Binding CheckBox_2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <CheckBox IsChecked="{Binding CheckBox_3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <CheckBox IsChecked="{Binding CheckBox_4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16"/>
-            <Button Command="{Binding SaveEditTaskCommand}" CommandParameter="{Binding SelectedTask}" Content="Сохранить изменения" Grid.Column="1" HorizontalAlignment="Left" Margin="355,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140" Height="20"/>
-            <Button Command="{Binding AddTaskCommand}" Content="Добавить вопрос" Grid.Column="1" HorizontalAlignment="Left" Margin="209,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140
-                    " RenderTransformOrigin="0.353,-0.673" Height="20"/>
-            <Button Command="{Binding RemoveTaskCommand}" CommandParameter="{Binding SelectedTask}" Content="Удалить вопрос" Grid.Column="1" HorizontalAlignment="Left" Margin="64,9,0,10" Grid.Row="7" VerticalAlignment="Center" Width="140" RenderTransformOrigin="0.353,-0.673" Height="20"/>
-            <TextBlock HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="Верный ответ" VerticalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Right" Margin="0,16,1,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="46" Text="Вопрос:"/>
+            <TextBox Text="{Binding Path=CurrentTask.Question,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Row="2" Grid.Column="1"/>
+            <TextBox Text="{Binding Path=Answer_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="19" Margin="0,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Row="4" Grid.Column="1"/>
+            <TextBox Text="{Binding Path=Answer_2,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="5"/>
+            <TextBox Text="{Binding Path=Answer_3,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="6"/>
+            <TextBox Text="{Binding Path=Answer_4,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="19" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" Grid.Column="1" Grid.Row="7"/>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="3" TextWrapping="Wrap" Text="Варианты ответов" VerticalAlignment="Center" RenderTransformOrigin="1.976,0.365" Margin="209,16,209,10" Height="16" Width="100"/>
+            <CheckBox IsChecked ="{Binding CheckBox_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16" Margin="54,16,55,10"/>
+            <CheckBox IsChecked="{Binding CheckBox_2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16" Margin="54,13,55,13"/>
+            <CheckBox IsChecked="{Binding CheckBox_3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="6" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16" Margin="54,13,55,13"/>
+            <CheckBox IsChecked="{Binding CheckBox_4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"  Grid.Row="7" VerticalAlignment="Center" RenderTransformOrigin="2.397,0.002"  Height="16" Width="16" Margin="54,10,55,16"/>
+            <Button Command="{Binding SaveEditTaskCommand}" CommandParameter="{Binding SelectedTask}" Content="Сохранить изменения" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,10" Grid.Row="8" VerticalAlignment="Bottom" Width="140" Height="20"/>
+            <Button Command="{Binding AddTaskCommand}" Content="Добавить вопрос" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,160,10" Grid.Row="8" VerticalAlignment="Bottom" Width="140" Height="20"/>
+            <Button Command="{Binding RemoveTaskCommand}" CommandParameter="{Binding SelectedTask}" Content="Удалить вопрос" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,310,10" Grid.Row="8" VerticalAlignment="Bottom" Width="140" RenderTransformOrigin="0.353,-0.673" Height="20"/>
+            <TextBlock HorizontalAlignment="Center"  Grid.Row="3" TextWrapping="Wrap" Text="Верный ответ" VerticalAlignment="Center" Margin="25,16,24,10" Height="16" Width="76"/>
+            <Button Command="{Binding SaveExamensCommand}" Content="Сохранить экзамен" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,10" Grid.Row="9" VerticalAlignment="Bottom" Width="140" Height="20"/>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Количество вопросов:" VerticalAlignment="Top" Width="125" Height="16" Margin="-1,35,0,0"/>
+            <TextBox MaxLength="3" HorizontalAlignment="Left" Height="17" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.341,-1.647" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="AmountTasks" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock HorizontalAlignment="Left" Margin="31,2,0,0" TextWrapping="Wrap" Text="Время экзамена:" VerticalAlignment="Top" RenderTransformOrigin="0.367,-0.75" Height="16" Width="93" Grid.Row="1"/>
+            <TextBox MaxLength="3" HorizontalAlignment="Left" Height="17" Margin="0,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.341,-1.647" Grid.Column="1" Grid.Row="1">
+                <TextBox.Text>
+                    <Binding Path="TimeExamen" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Command="{Binding SettingCommand}" Content="Дополнительные настройки" Grid.Column="1" HorizontalAlignment="Left" Margin="323,4,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1"/>
         </Grid>
         <TextBlock HorizontalAlignment="Left" Margin="49,10,0,0" TextWrapping="Wrap" Text="Вопросы:" VerticalAlignment="Top"/>
-        <ListBox Name="lbTasks" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask}" HorizontalAlignment="Left" Height="378" Margin="10,31,0,0" VerticalAlignment="Top" Width="129">
-        <!--<ListBox.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Path=SelectedTask.Title}"/>
-            </DataTemplate>
-        </ListBox.ItemTemplate>-->
+        <ListBox Name="lbTasks"  ItemsSource="{Binding Tasks, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTask, Mode=TwoWay}" HorizontalAlignment="Left" Height="378" Margin="10,31,0,0" VerticalAlignment="Top" Width="129">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                        <Setter Property="Foreground" Value="Red" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
     </Grid>
 </Window>

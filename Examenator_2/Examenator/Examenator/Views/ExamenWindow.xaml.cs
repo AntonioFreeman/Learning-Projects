@@ -21,10 +21,12 @@ namespace Examenator.Views
     /// </summary>
     public partial class ExamenWindow : Window
     {
-        public ExamenWindow(Examen examen, int amountTask, int timeExamen)
+        public ExamenWindow(Result result, Examen examen)
         {
             InitializeComponent();
-            DataContext = new ExamenViewModel(examen, amountTask, timeExamen);
+            var examenVM = new ExamenViewModel(result, examen);
+            DataContext = examenVM;
+            examenVM.CloseHandler += (sender, args) => this.Close();
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Examenator.AbstractClasses
     [Serializable]
     public abstract class BaseTask : ITask
     {
-
         private string title;
         public string Title
         {
@@ -48,10 +47,10 @@ namespace Examenator.AbstractClasses
             }
         }
 
-        public override string ToString()
-        {
-            return Title;
-        }
+        //public override string ToString()
+        //{
+        //    return Title;
+        //}
 
         public virtual void Assign(BaseTask task)
         {
@@ -71,6 +70,7 @@ namespace Examenator.AbstractClasses
             cloned.Assign(this);
             return cloned;
         }
+
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")

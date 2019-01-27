@@ -13,23 +13,23 @@ namespace Examenator.ViewModels
 {
     public class ExamenViewModel: INotifyPropertyChanged
     {
+        private int hours = 0;
+        private int minutes = 0;
+        private int seconds = 0;
         private int countTask = 1;
-        public Result Result { get; set; }
-        int timeEndOfExamen;
-        public DispatcherTimer TimeExamen;
-        int hours = 0;
-        int minutes = 0;
-        int seconds = 0;
+        private int timeEndOfExamen;               
+        public Result Result {get; set; }
+        public EventHandler CloseHandler; 
+        public DispatcherTimer TimeExamen;       
 
-
-        public ExamenViewModel(Examen examen, int amountTask, int timeExamen)
+        public ExamenViewModel(Result result, Examen examen)
         {
             Subject = examen.Subject;
-            Result = new Result(amountTask);
-            CreateExamen(examen, amountTask);
+            Result = result;
+            CreateExamen(examen);
             CurrentTask = CurrentExamen.ElementAt(0);
             NumberTask = countTask.ToString();
-            timeEndOfExamen = timeExamen;
+            timeEndOfExamen = examen.TimeExamen;
             RunTimer();            
         }
         
@@ -58,9 +58,10 @@ namespace Examenator.ViewModels
             ElapsedTime = string.Format("Прошло времени: {0}:{1}:{2}", hours, minutes, seconds);
         }
 
-        public void CreateExamen (Examen examen, int amountTask)
+        private void CreateExamen (Examen examen)
         {
             Random random = new Random();
+            int amountTask =examen.AmountTask;
             CurrentExamen = new List<TextTask>();
             var list = new List<TextTask>();
             var usedIndexes = new int[amountTask+1];
@@ -76,6 +77,11 @@ namespace Examenator.ViewModels
             {
                 CurrentExamen.Add((TextTask)t.Clone());
             }
+        }
+
+        public bool ConditionAnswer()
+        {
+            return CheckBox_1 || CheckBox_2 || CheckBox_3 || CheckBox_4;
         }
 
         private RelayCommand answerCommand;
@@ -100,6 +106,8 @@ namespace Examenator.ViewModels
                     if (countTask == CurrentExamen.Count)
                     {
                         EndExamen();
+                        var handler = CloseHandler;
+                        if (handler != null) handler.Invoke(this, EventArgs.Empty);
                     }
                     else
                     { 
@@ -109,12 +117,7 @@ namespace Examenator.ViewModels
                     }
                 }, (obj) => ConditionAnswer()));
             }
-        }
-
-        public bool ConditionAnswer()
-        {
-            return CheckBox_1 || CheckBox_2 || CheckBox_3 || CheckBox_4;
-        }
+        }        
         
         private string subject;
         public string Subject
@@ -280,13 +283,11 @@ namespace Examenator.ViewModels
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
-
     }
 }

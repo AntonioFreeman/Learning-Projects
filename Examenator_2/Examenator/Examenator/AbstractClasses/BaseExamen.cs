@@ -13,21 +13,69 @@ namespace Examenator.AbstractClasses
     [Serializable]
     public abstract class BaseExamen : IExam
     {
-        private string subject;
-        public string Subject { get { return subject; }
+        public ObservableCollection<BaseTask> Tasks { get; set; }
 
+        private string subject;
+        public string Subject
+        { get { return subject; }
             set
             {
                 subject = value;
                 OnPropertyChanged("Subject");
-            } }
+            }
+        }
 
-        public ObservableCollection<BaseTask> Tasks { get; set; }
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set
+            {
+                password = value;
+                OnPropertyChanged("Password");
+            }
+        }
+
+        private int procent_3;
+        public int Procent_3
+        {
+            get { return procent_3; }
+            set
+            {
+                procent_3 = value;
+                OnPropertyChanged("Procent_3");
+            }
+        }
+
+        private int procent_4;
+        public int Procent_4
+        {
+            get { return procent_4; }
+            set
+            {
+                procent_4 = value;
+                OnPropertyChanged("Procent_4");
+            }
+        }
+
+        private int procent_5;
+        public int Procent_5
+        {
+            get { return procent_5; }
+            set
+            {
+                procent_5 = value;
+                OnPropertyChanged("Procent_5");
+            }
+        }
 
         public virtual void Assign(BaseExamen examen)
         {
             Subject = examen.Subject;
-
+            Password = examen.Password;
+            Procent_3 = examen.Procent_3;
+            Procent_4 = examen.Procent_4;
+            Procent_5 = examen.Procent_5;
             var tasks = new ObservableCollection<BaseTask>();
             foreach (var e in examen.Tasks)
             {
@@ -42,6 +90,7 @@ namespace Examenator.AbstractClasses
             cloned.Assign(this);
             return cloned;
         }
+
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")

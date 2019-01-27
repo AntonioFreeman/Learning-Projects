@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Examenator.Views"
         mc:Ignorable="d"
-        Title="{Binding Subject}" Height="400" Width="1000">
+        Title="{Binding Subject}" Height="400" Width="1000" ResizeMode="CanResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="70*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="117*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="1" Grid.Row="0" FontSize="16" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Вопрос №" VerticalAlignment="Center"  Width="81"/>
@@ -26,12 +26,12 @@
         <CheckBox IsChecked="{Binding CheckBox_2}" IsThreeState="False" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <CheckBox IsChecked="{Binding CheckBox_3}" IsThreeState="False" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <CheckBox IsChecked="{Binding CheckBox_4}" IsThreeState="False" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" TextWrapping="Wrap" Text="{Binding Question}" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap" Text="{Binding Answer_1}" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap" Text="{Binding Answer_2}" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" TextWrapping="Wrap" Text="{Binding Answer_3}" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap" Text="{Binding Answer_4}" VerticalAlignment="Center"/>
-        <Button Command="{Binding AnswerCommand}" Content="Ответить" Grid.Column="1" HorizontalAlignment="Left" Height="39" Margin="10,10,0,-23" Grid.Row="6" VerticalAlignment="Top" Width="129"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="746,2,0,0" TextWrapping="Wrap" Text="{Binding ElapsedTime}" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="180"/>
+        <TextBlock FontSize="14" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" TextWrapping="Wrap" Text="{Binding Question}" VerticalAlignment="Center"/>
+        <TextBlock FontSize="14" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap" Text="{Binding Answer_1}" VerticalAlignment="Center"/>
+        <TextBlock FontSize="14" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap" Text="{Binding Answer_2}" VerticalAlignment="Center"/>
+        <TextBlock FontSize="14" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="4" TextWrapping="Wrap" Text="{Binding Answer_3}" VerticalAlignment="Center"/>
+        <TextBlock FontSize="14" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap" Text="{Binding Answer_4}" VerticalAlignment="Center"/>
+        <Button FontSize="16" Command="{Binding AnswerCommand}" Content="Ответить" Grid.Column="1" HorizontalAlignment="Left" Height="39" Margin="10,10,0,-23" Grid.Row="6" VerticalAlignment="Top" Width="129"/>
+        <TextBlock FontSize="14" Grid.Column="1" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding ElapsedTime}" VerticalAlignment="Center" Width="180"/>
     </Grid>
 </Window>

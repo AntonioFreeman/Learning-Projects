@@ -1,4 +1,5 @@
 ﻿using Examenator.ViewModels;
+using Examenator.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,7 @@ namespace Examenator
     {
         public MainWindow()
         {
-            InitializeComponent();
-           
+            InitializeComponent();           
             DataContext = new MainWindowViewModel();
         }
     }

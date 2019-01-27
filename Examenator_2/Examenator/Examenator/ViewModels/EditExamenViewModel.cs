@@ -1,5 +1,6 @@
 ﻿using Examenator.AbstractClasses;
 using Examenator.Classes;
+using Examenator.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,17 +8,22 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Examenator.ViewModels
 {
-    public class EditExamenViewModel : INotifyPropertyChanged
+    public class EditExamenViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        
+        private bool editFlag = false;
+        private int indexExamen;
+        private Loader loader;
+        public ObservableCollection<Examen> Examens { get; set; }
         public Examen CurrentExamen;
+        public SettingWindow SettingWindow;
+
         public void UpdateCurrentTask(TextTask task)
         {
             var currentTask = (TextTask)task.Clone();
-
             CurrentTask = currentTask;
             OnPropertyChanged("CurrentTask");
             OnPropertyChanged("Answer_1");
@@ -30,21 +36,23 @@ namespace Examenator.ViewModels
             OnPropertyChanged("CheckBox_4");
         }
 
-        public EditExamenViewModel(Examen examen)
+        public EditExamenViewModel(ObservableCollection<Examen> examens)
         {
-            CurrentExamen = examen;
-            Subject = examen.Subject;
+            loader = new Loader();
+            indexExamen = examens.Count;
+            Examens = examens;
+            CurrentExamen = new Examen();          
             CurrentTask = new TextTask();
         }
 
-        public string Subject
+        public EditExamenViewModel(Examen examen, ObservableCollection<Examen> examens)
         {
-            get { return CurrentExamen.Subject; }
-            set
-            {
-                CurrentExamen.Subject = value;
-                OnPropertyChanged("Subject");
-            }
+            editFlag = true;
+            indexExamen = examens.IndexOf(examen);
+            loader = new Loader();
+            Examens = examens;
+            CurrentExamen = (Examen)examen.Clone();
+            CurrentTask = new TextTask();
         }
 
         public ObservableCollection<BaseTask> Tasks
@@ -56,6 +64,36 @@ namespace Examenator.ViewModels
                 OnPropertyChanged("Tasks");
             }
         }
+
+        public int AmountTasks
+        {
+            get { return CurrentExamen.AmountTask; }
+            set
+            {
+                    CurrentExamen.AmountTask = value;
+                    OnPropertyChanged("AmountTasks");           
+            }
+        }
+
+        public int TimeExamen
+        {
+            get { return CurrentExamen.TimeExamen; }
+            set
+            {
+                    CurrentExamen.TimeExamen = value;
+                    OnPropertyChanged("TimeExamen");
+            }
+        }
+
+        public string Subject
+        {
+            get { return CurrentExamen.Subject; }
+            set
+            {
+                CurrentExamen.Subject = value;
+                OnPropertyChanged("Subject");
+            }
+        }        
 
         public string Answer_1
         {
@@ -174,6 +212,7 @@ namespace Examenator.ViewModels
                 }));
             }
         }
+
         private RelayCommand saveEditTaskCommand;
         public RelayCommand SaveEditTaskCommand
         {
@@ -191,7 +230,6 @@ namespace Examenator.ViewModels
         }
 
         private RelayCommand removeTaskCommand;
-
         public RelayCommand RemoveTaskCommand
         {
             get
@@ -201,9 +239,76 @@ namespace Examenator.ViewModels
                     TextTask task = obj as TextTask;
                     if (task != null)
                     {
+                        int index = Tasks.IndexOf(task);
                         Tasks.Remove(task);
+                        for (int i = index; i < Tasks.Count; i++)
+                        {
+                            Tasks[i].Title = "Задание № " + (i + 1).ToString();
+                        }
+                        if (index < Tasks.Count) SelectedTask = (TextTask)Tasks[index];
                     }
                 }, (obj) => Tasks.Count > 0));
+            }
+        }
+
+        private RelayCommand saveExamensCommand;
+        public RelayCommand SaveExamensCommand
+        {
+            get
+            {
+                return saveExamensCommand ?? (saveExamensCommand = new RelayCommand(obj =>
+                {
+                    if (editFlag)
+                    {
+                        Examens.Insert(indexExamen, CurrentExamen);
+                        Examens.RemoveAt(indexExamen + 1);
+                    }
+                    else
+                    {
+                        Examens.Add(CurrentExamen);
+                        editFlag = true;
+                    }
+                    loader.SaveSerialisation(Examens);
+                }));
+            }
+        }
+
+        private RelayCommand settingCommand;
+        public RelayCommand SettingCommand
+        {
+            get
+            {
+                return settingCommand ?? (settingCommand = new RelayCommand(obj =>
+                {
+                    var SettingWindow = new SettingWindow(CurrentExamen);
+                    SettingWindow.Show();
+                }));
+            }
+        }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case "AmountTasks":
+                        if ((AmountTasks < 1) || (AmountTasks > Tasks.Count))
+                        {
+                            error = "Введите количество вопросов не менее 1 и не более общего количества вопросов";
+                        }
+                        break;
+                    case "TimeExamen":
+                        if ((TimeExamen < 1) || (TimeExamen > 720))
+                        {
+                            error = "Введите время экзамена от 1 и до 720 минут";
+                        }
+                        break;
+                }
+                return error;
             }
         }
 

@@ -12,7 +12,6 @@ namespace Examenator.AbstractClasses
     [Serializable]
     public abstract class BaseAnswer : IAnswer
     {
-
         private bool correct;
         public bool Correct
         {
@@ -35,18 +34,19 @@ namespace Examenator.AbstractClasses
             }
         }
 
-         public virtual void Assign(BaseAnswer answer)
+        public virtual void Assign(BaseAnswer answer)
             {                
                 Correct = answer.Correct;
                 Check = answer.Check;
             }
 
-         public virtual BaseAnswer Clone()
+        public virtual BaseAnswer Clone()
             {
                 var cloned = (BaseAnswer) Activator.CreateInstance(GetType());
                 cloned.Assign(this);
                 return cloned;
             }
+
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")

@@ -2,7 +2,6 @@
 using Examenator.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,18 +16,17 @@ using System.Windows.Shapes;
 
 namespace Examenator.Views
 {
-    public partial class EditExamenWindow : Window
+    /// <summary>
+    /// Interaction logic for SettingWindow.xaml
+    /// </summary>
+    public partial class SettingWindow : Window
     {
-        public EditExamenWindow(Examen ex, ObservableCollection<Examen> examens)
+        public SettingWindow(Examen examen)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(ex, examens);
-        }
-
-        public EditExamenWindow(ObservableCollection<Examen> examens)
-        {
-            InitializeComponent();
-            DataContext = new EditExamenViewModel(examens);
+            var settingVM = new SettingViewModel(examen) ;
+            DataContext = settingVM;
+            settingVM.CloseHandler += (sender, args) => this.Close(); 
         }
     }
 }

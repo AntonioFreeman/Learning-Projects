@@ -13,120 +13,11 @@ namespace Examenator.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public Loader Loader;
+        private Loader loader;
+        public Result Result;
         public ObservableCollection<Examen> Examens { get; set; }
         public EditExamenWindow EditWindow;
-        public ExamenWindow ExamenWindow;
-
-        private string title;
-                  
-        private RelayCommand startExamenCommand;
-        public RelayCommand StartExamenCommand
-        {
-            get
-            {
-                return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
-                {
-                    ExamenWindow = new ExamenWindow(SelectedExamen, AmountTasks, TimeExamen);
-                    ExamenWindow.Show();
-                }, (obj) =>  (SelectedExamen != null) && termAmountTask() && termTimeExamen()));
-            }
-        }
-
-        private bool termAmountTask()
-        {
-            return AmountTasks > 0 && AmountTasks <= SelectedExamen.Tasks.Count;
-        }
-
-        private bool termTimeExamen()
-        {
-            return TimeExamen > 0;
-        }
-
-        private RelayCommand addExamenCommand;
-
-        public RelayCommand AddExamenCommand
-        {
-            get
-            {
-                return addExamenCommand ?? (addExamenCommand = new RelayCommand(obj =>
-                {
-                    Examen examen = new Examen();
-                    examen.Subject = "Новый экзамен";
-                    examen.Tasks = new ObservableCollection<BaseTask>();
-                    Examens.Add(examen);                  
-                    SelectedExamen = examen;
-                    EditWindow = new EditExamenWindow(examen);
-                    EditWindow.Show();
-                }));
-            }
-        }
-
-        private RelayCommand editExamenCommand;
-
-        public RelayCommand EditExamenCommand
-        {
-            get
-            {
-                return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
-                {
-                    EditWindow = new EditExamenWindow(SelectedExamen);
-                    EditWindow.Show();
-                }, (obj) => SelectedExamen != null));
-            }
-        }
-
-        private RelayCommand removeExamenCommand;
-
-        public RelayCommand RemoveExamenCommand
-        {
-            get
-            {
-                return removeExamenCommand ?? (removeExamenCommand = new RelayCommand(obj =>
-                {
-                    Examen examen = obj as Examen;
-                    if (examen != null)
-                    {
-                        Examens.Remove(examen);
-                    }
-                }, (obj) => Examens.Count > 0));
-            }
-        }
-        private RelayCommand saveExamensCommand;
-        public RelayCommand SaveExamensCommand
-        {
-            get
-            {
-                return saveExamensCommand ?? (saveExamensCommand = new RelayCommand(obj =>
-                {
-                    Loader.SaveSerialisation(Examens);
-                }, (obj) => Examens.Count > 0));
-            }
-        }
-
-        private Examen selectedExamen;
-
-        public Examen SelectedExamen
-        {
-            get { return selectedExamen; }
-            set
-            {
-                selectedExamen = value;
-                AmountTasks = selectedExamen.Tasks.Count;
-                TimeExamen = 60;
-                OnPropertyChanged("SelectedExamen");
-            }
-        }
-
-        public string Title
-        {
-            get { return title; }
-            set
-            {
-                title = value;
-                OnPropertyChanged("TitleExamen");
-            }
-        }
+        public EnterNameWindow EnterWindow;
 
         private int amountTasks;
         public int AmountTasks
@@ -138,6 +29,7 @@ namespace Examenator.ViewModels
                 OnPropertyChanged("AmountTasks");
             }
         }
+
         private int timeExamen;
         public int TimeExamen
         {
@@ -149,15 +41,98 @@ namespace Examenator.ViewModels
             }
         }
 
+        private Examen selectedExamen;
+        public Examen SelectedExamen
+        {
+            get { return selectedExamen; }
+            set
+            {
+                selectedExamen = value;
+                if(selectedExamen != null)
+                {
+                    TimeExamen = selectedExamen.TimeExamen;
+                    AmountTasks = selectedExamen.AmountTask;
+                }                
+                OnPropertyChanged("SelectedExamen");
+            }
+        }               
+
         public MainWindowViewModel()
         {
-            Loader = new Loader();
+            loader = new Loader();
             try 
-                { Examens = Loader.LoadDeserialisation(); }
+                { Examens = loader.LoadDeserialisation(); }
             catch
                 { Examens = new ObservableCollection<Examen>(); }           
         }
+                
+        private bool termAmountTask()
+        {
+            return AmountTasks > 0 && AmountTasks <= SelectedExamen.Tasks.Count;
+        }
 
+        private bool termTimeExamen()
+        {
+            return TimeExamen > 0 && AmountTasks <= 720;
+        }
+
+        private RelayCommand startExamenCommand;
+        public RelayCommand StartExamenCommand
+        {
+            get
+            {
+                return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
+                {
+                    Result = new Result(SelectedExamen);
+                    EnterWindow = new EnterNameWindow(Result, SelectedExamen);
+                    EnterWindow.Show();
+                }, (obj) => (SelectedExamen != null && termAmountTask() && termTimeExamen())));
+            }
+        }
+
+        private RelayCommand addExamenCommand;
+        public RelayCommand AddExamenCommand
+        {
+            get
+            {
+                return addExamenCommand ?? (addExamenCommand = new RelayCommand(obj =>
+                {
+                    EditWindow = new EditExamenWindow(Examens);
+                    EditWindow.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand editExamenCommand;
+        public RelayCommand EditExamenCommand
+        {
+            get
+            {
+                return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
+                {
+                    EditWindow = new EditExamenWindow(SelectedExamen, Examens);
+                    EditWindow.ShowDialog();
+                }, (obj) => SelectedExamen != null));
+            }
+        }
+
+        private RelayCommand removeExamenCommand;
+        public RelayCommand RemoveExamenCommand
+        {
+            get
+            {
+                return removeExamenCommand ?? (removeExamenCommand = new RelayCommand(obj =>
+                {
+                    Examen examen = obj as Examen;
+                    if (examen != null)
+                    {
+                        Examens.Remove(examen);
+                        loader.SaveSerialisation(Examens);
+                    }
+                }, (obj) => Examens.Count > 0));
+            }
+        }
+               
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {

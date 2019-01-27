@@ -33,6 +33,5 @@ namespace Examenator.Classes
             cloned.Assign(this);
             return cloned;
         }
-
     }
 }
