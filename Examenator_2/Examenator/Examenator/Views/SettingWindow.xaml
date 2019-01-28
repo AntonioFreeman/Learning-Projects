@@ -22,7 +22,7 @@
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" Text="Процент нижней границы оценки 3" VerticalAlignment="Top" Grid.Row="1" Height="25" Width="274"/>
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" Text="Процент нижней границы оценки 4" VerticalAlignment="Top" Grid.Row="2" Height="21" Width="274"/>
         <TextBlock FontSize="16" HorizontalAlignment="Left" Margin="10,24,0,0" TextWrapping="Wrap" Text="Процент нижней границы оценки 5" VerticalAlignment="Top" Grid.Row="3" Height="21" Width="274"/>
-        <PasswordBox FontSize="16" MaxLength="10" Grid.Column="1" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Width="146"/>
+        <PasswordBox Name="pswrd" FontSize="16" MaxLength="10" Grid.Column="1" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Width="146"/>
         <TextBox FontSize="16" MaxLength="3" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,20,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="43">
             <TextBox.Text>
                 <Binding Path="Procent_3" UpdateSourceTrigger="PropertyChanged">
@@ -50,8 +50,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        
-        <Button FontSize="16" Content="Сохранить" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="168,18,0,0" Grid.Row="4" VerticalAlignment="Top" Width="107"/>
+
+        <Button FontSize="16" Content="Сохранить" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="168,18,0,0" Grid.Row="4" VerticalAlignment="Top" Width="107" Click="Button_Click"/>
         <Button FontSize="16" Content="Отмена" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="10,18,0,0" Grid.Row="4" VerticalAlignment="Top" Width="107" Grid.Column="1"/>
         <Grid.Resources>
             <Style TargetType="TextBox">

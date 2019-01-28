@@ -76,6 +76,9 @@
     <Compile Include="Views\ExamenWindow.xaml.cs">
       <DependentUpon>ExamenWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PasswordWindow.xaml.cs">
+      <DependentUpon>PasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResultWindow.xaml.cs">
       <DependentUpon>ResultWindow.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExamenWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

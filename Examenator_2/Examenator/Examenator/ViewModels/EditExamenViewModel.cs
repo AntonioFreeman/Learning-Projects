@@ -281,7 +281,7 @@ namespace Examenator.ViewModels
                 return settingCommand ?? (settingCommand = new RelayCommand(obj =>
                 {
                     var SettingWindow = new SettingWindow(CurrentExamen);
-                    SettingWindow.Show();
+                    SettingWindow.ShowDialog();
                 }));
             }
         }

@@ -17,6 +17,7 @@ namespace Examenator.ViewModels
         public Result Result;
         public ObservableCollection<Examen> Examens { get; set; }
         public EditExamenWindow EditWindow;
+        public PasswordWindow PasswordWindow;
         public EnterNameWindow EnterWindow;
 
         private int amountTasks;
@@ -110,8 +111,8 @@ namespace Examenator.ViewModels
             {
                 return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
                 {
-                    EditWindow = new EditExamenWindow(SelectedExamen, Examens);
-                    EditWindow.ShowDialog();
+                    PasswordWindow = new PasswordWindow(SelectedExamen, Examens);
+                    PasswordWindow.ShowDialog();
                 }, (obj) => SelectedExamen != null));
             }
         }
@@ -125,7 +126,7 @@ namespace Examenator.ViewModels
                 {
                     Examen examen = obj as Examen;
                     if (examen != null)
-                    {
+                    {                        
                         Examens.Remove(examen);
                         loader.SaveSerialisation(Examens);
                     }

@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Examenator.ViewModels
 {
@@ -22,17 +24,6 @@ namespace Examenator.ViewModels
             Procent_3 = currentExamen.Procent_3;
             Procent_4 = currentExamen.Procent_4;
             Procent_5 = currentExamen.Procent_5;
-        }
-
-        private string password;
-        public string Password
-        {
-            get { return password; }
-            set
-            {
-                password = value;
-                OnPropertyChanged("Password");
-            }
         }
 
         private int procent_3;
@@ -76,7 +67,6 @@ namespace Examenator.ViewModels
                 return saveCommand ?? (saveCommand = new RelayCommand(obj =>
                 {
                     {
-                        baseExamen.Password = Password;
                         baseExamen.Procent_3 = Procent_3;
                         baseExamen.Procent_4 = Procent_4;
                         baseExamen.Procent_5 = Procent_5;

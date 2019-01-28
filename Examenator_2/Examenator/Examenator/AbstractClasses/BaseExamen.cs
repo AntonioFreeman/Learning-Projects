@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace Examenator.AbstractClasses
             set
             {
                 password = value;
-                OnPropertyChanged("Password");
+                OnPropertyChanged("PasswordText");
             }
         }
 
