@@ -13,6 +13,7 @@ namespace Examenator.Interfaces
 {
     interface ITask : INotifyPropertyChanged
     {
+        int Id { get; set; }
         string Title { get; set; }
         string Question { get; set; }
         ObservableCollection<TextAnswer> Answers { get; set; }

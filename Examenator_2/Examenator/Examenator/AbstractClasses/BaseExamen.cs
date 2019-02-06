@@ -14,6 +14,8 @@ namespace Examenator.AbstractClasses
     [Serializable]
     public abstract class BaseExamen : IExam
     {
+        public int Id { get; set; }
+
         public ObservableCollection<BaseTask> Tasks { get; set; }
 
         private string subject;

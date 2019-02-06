@@ -10,6 +10,7 @@ namespace Examenator.Interfaces
 {
     interface IAnswer : INotifyPropertyChanged
     {
+        int Id { get; set; }
         bool Correct { get; set; }
         bool Check { get; set; }
     }

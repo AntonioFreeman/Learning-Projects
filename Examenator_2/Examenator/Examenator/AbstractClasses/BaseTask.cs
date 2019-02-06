@@ -14,6 +14,8 @@ namespace Examenator.AbstractClasses
     [Serializable]
     public abstract class BaseTask : ITask
     {
+        public int Id { get; set; }
+
         private string title;
         public string Title
         {

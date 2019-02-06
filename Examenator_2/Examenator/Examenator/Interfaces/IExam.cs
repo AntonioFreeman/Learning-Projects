@@ -10,6 +10,7 @@ namespace Examenator.Interfaces
 {
     interface IExam : INotifyPropertyChanged
     {
+        int Id { get; set; }
         string Subject { get; set; }
     }
 }

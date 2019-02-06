@@ -12,6 +12,7 @@ namespace Examenator.AbstractClasses
     [Serializable]
     public abstract class BaseAnswer : IAnswer
     {
+        public int Id { get; set; }
         private bool correct;
         public bool Correct
         {
