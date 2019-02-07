@@ -16,6 +16,5 @@ namespace Examenator.Interfaces
         int Id { get; set; }
         string Title { get; set; }
         string Question { get; set; }
-        ObservableCollection<TextAnswer> Answers { get; set; }
     }
 }

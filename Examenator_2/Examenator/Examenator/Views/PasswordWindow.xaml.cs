@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,19 +23,23 @@ namespace Examenator.Views
     /// </summary>
     public partial class PasswordWindow : Window
     {
-        private Examen currentExamen;
-        private ObservableCollection<Examen> editExamens;
-        public PasswordWindow(Examen examen, ObservableCollection<Examen> examens)
+        private DataRow currentExamen;
+        private DataSet dataSet;
+        private SqlDataAdapter aT;
+        private int indexExamen;
+        public PasswordWindow(DataRow examen, DataSet ds, SqlDataAdapter adapterTasks)
         {
             InitializeComponent();
             currentExamen = examen;
-            editExamens = examens;
+            dataSet = ds;
+            aT = adapterTasks;
+            indexExamen = ds.Tables[0].Rows.IndexOf(examen);
         }
         public void Verification(object sender, RoutedEventArgs e)
         {
-            if(currentExamen.Password == pswrd_1.Password)
+            if((string)currentExamen["Password"] == pswrd_1.Password)
             {
-                var editWindow = new EditExamenWindow(currentExamen, editExamens);
+                var editWindow = new EditExamenWindow(indexExamen, dataSet, aT);
                 editWindow.ShowDialog();
                 this.Close();
             }

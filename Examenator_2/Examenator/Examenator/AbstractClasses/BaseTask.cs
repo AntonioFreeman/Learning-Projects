@@ -15,6 +15,7 @@ namespace Examenator.AbstractClasses
     public abstract class BaseTask : ITask
     {
         public int Id { get; set; }
+        public int Id_Examen { get; set; }
 
         private string title;
         public string Title

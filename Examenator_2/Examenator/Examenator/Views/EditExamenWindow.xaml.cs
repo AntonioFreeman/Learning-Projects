@@ -3,6 +3,8 @@ using Examenator.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,16 +21,16 @@ namespace Examenator.Views
 {
     public partial class EditExamenWindow : Window
     {
-        public EditExamenWindow(Examen ex, ObservableCollection<Examen> examens)
+        public EditExamenWindow(int selectedExamen, DataSet ds, SqlDataAdapter adapterTasks)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(ex, examens);
+            DataContext = new EditExamenViewModel(ds, selectedExamen, adapterTasks);
         }
 
-        public EditExamenWindow(ObservableCollection<Examen> examens)
+        public EditExamenWindow(DataSet ds, SqlDataAdapter adapterTasks, SqlDataAdapter adapterExamens)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(examens);
+            DataContext = new EditExamenViewModel(ds, adapterTasks, adapterExamens);
         }
     }
 }
