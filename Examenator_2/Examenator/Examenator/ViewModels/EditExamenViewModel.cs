@@ -20,7 +20,7 @@ namespace Examenator.ViewModels
         SqlDataAdapter adapterExamens;
         private bool editFlag = false;
         private DataRow[] storageTasks;
-        int indexExamen;
+        int idCurrentExamen;
         private Loader loader;
         public DataTable examensTable { get; set; }
         public DataTable tasksTable { get; set; }
@@ -42,37 +42,35 @@ namespace Examenator.ViewModels
             OnPropertyChanged("CheckBox_4");
         }
 
-        public EditExamenViewModel(DataSet ds, SqlDataAdapter aT, SqlDataAdapter aE)
+        public EditExamenViewModel(DataTable et, Loader ldr)
         {
-            adapterTasks = aT;
-            adapterExamens = aE;
-            examensTable = ds.Tables[0];
-            tasksTable = ds.Tables[1];
-         
-            //loader = new Loader();
-
+            loader = ldr;
+            adapterTasks = ldr.adapterTasks;
+            adapterExamens = ldr.adapterExamens;
+            examensTable = et;
+            tasksTable = ldr.Load(adapterTasks).Tables[0];
             CurrentExamen = new Examen();          
             CurrentTask = new TextTask();
         }
 
-        public EditExamenViewModel(DataSet ds, int selectedExamen, SqlDataAdapter aT)
+        public EditExamenViewModel(DataTable et, int idExamen, Loader ldr)
         {
-            adapterTasks = aT;
+            loader = ldr;
+            adapterTasks = ldr.adapterTasks;
             editFlag = true;
-            indexExamen = selectedExamen;
-            //loader = new Loader();
-            examensTable = ds.Tables[0];
-            tasksTable = ds.Tables[1];
-            CurrentExamen = CreateExamen(selectedExamen);
+            idCurrentExamen = idExamen;
+            examensTable = et;
+            tasksTable = ldr.Load(adapterTasks).Tables[0];
+            CurrentExamen = CreateExamen(idCurrentExamen);
             CurrentTask = new TextTask();
         }
 
-        private Examen CreateExamen(int selectedExamen)
+        private Examen CreateExamen(int idExamen)
         {
-            DataRow examen = examensTable.Rows[selectedExamen];
+            DataRow examen = examensTable.Select(string.Format("Id = {0}", idExamen))[0];
             var newExamen = new Examen();
-            newExamen.Subject = (string)examen["Subject"];
-            newExamen.Password = (string)examen["Password"];
+            newExamen.Subject = (examen["Subj"] != DBNull.Value) ? (string)examen["Subj"] : null;
+            newExamen.Password = (examen["Pswrd"] != DBNull.Value) ? (string)examen["Pswrd"] : null;
             newExamen.Procent_3 = (int)examen["Procent_3"];
             newExamen.Procent_4 = (int)examen["Procent_4"];
             newExamen.Procent_5 = (int)examen["Procent_5"];
@@ -88,11 +86,11 @@ namespace Examenator.ViewModels
                 newTask.Question = (string)t["Question"];
                 newTask.Id = (int)t["Id"];
                 newTask.Id_Examen = (int)t["Id_Examen"];
+                newTask.Answers.Clear();
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_1"], Correct = (bool)t["Correct_Ans_1"] });
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_2"], Correct = (bool)t["Correct_Ans_2"] });
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_3"], Correct = (bool)t["Correct_Ans_3"] });
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_4"], Correct = (bool)t["Correct_Ans_4"] });
-
                 newExamen.Tasks.Add(newTask);
             }
             return newExamen;
@@ -302,56 +300,23 @@ namespace Examenator.ViewModels
                 return saveExamensCommand ?? (saveExamensCommand = new RelayCommand(obj =>
                 {
                     if (editFlag)
-                    {
-                        foreach(var sT in storageTasks)
+                    {                       
+                        foreach (var sT in storageTasks)
                         {
-                            tasksTable.Rows.Remove(sT);
+                            int index = tasksTable.Rows.IndexOf(sT);
+                            tasksTable.Rows[index].Delete();
                         }
-                        //AddTasks();
-                        foreach (var t in CurrentExamen.Tasks)
-                        {
-                            DataRow row = tasksTable.NewRow();
-                            row["Title"] = t.Title;
-                            row["Question"] = t.Question;
-                            row["Answer_1"] = t.Answers[0].ValueAnswer;
-                            row["Correct_Ans_1"] = t.Answers[0].Correct;
-                            row["Answer_2"] = t.Answers[1].ValueAnswer;
-                            row["Correct_Ans_2"] = t.Answers[1].Correct;
-                            row["Answer_3"] = t.Answers[2].ValueAnswer;
-                            row["Correct_Ans_3"] = t.Answers[2].Correct;
-                            row["Answer_4"] = t.Answers[3].ValueAnswer;
-                            row["Correct_Ans_4"] = t.Answers[3].Correct;
-                            row["Id_Examen"] = indexExamen;
-                            tasksTable.Rows.Add(row);
-                        }
-
-                        adapterTasks.Update(tasksTable);
-                        tasksTable.AcceptChanges();
+                        AddTasks();                      
+                        SelectedTask = null;
+                        CurrentExamen = CreateExamen(idCurrentExamen);
                     }
                     else
                     {
-                        DataRow newRow = examensTable.NewRow();
-                        newRow["Subject"] = CurrentExamen.Subject;
-                        newRow["Password"] = CurrentExamen.Password;
-                        newRow["Procent_3"] = CurrentExamen.Procent_3;
-                        newRow["Procent_4"] = CurrentExamen.Procent_4;
-                        newRow["Procent_5"] = CurrentExamen.Procent_5;
-                        newRow["AmountTasks"] = CurrentExamen.AmountTask;
-                        newRow["TimeExamen"] = CurrentExamen.TimeExamen;
-                        examensTable.Rows.Add(newRow);
-
-                        adapterExamens.Update(examensTable);
-                        examensTable.AcceptChanges();
-
-                        indexExamen = (int)newRow["Id"];
+                        AddExamen();
                         AddTasks();
-
-                        adapterTasks.Update(tasksTable);
-                        tasksTable.AcceptChanges();
-
                         editFlag = true;
+                        CurrentExamen = CreateExamen(idCurrentExamen);
                     }
-                   // loader.SaveSerialisation(Examens);
                 }));
             }
         }
@@ -369,6 +334,21 @@ namespace Examenator.ViewModels
             }
         }
 
+        private void AddExamen()
+        {
+            DataRow newRow = examensTable.NewRow();
+            newRow["Subj"] = CurrentExamen.Subject;
+            newRow["Pswrd"] = CurrentExamen.Password;
+            newRow["Procent_3"] = CurrentExamen.Procent_3;
+            newRow["Procent_4"] = CurrentExamen.Procent_4;
+            newRow["Procent_5"] = CurrentExamen.Procent_5;
+            newRow["AmountTasks"] = CurrentExamen.AmountTask;
+            newRow["TimeExamen"] = CurrentExamen.TimeExamen;
+            examensTable.Rows.Add(newRow);
+            loader.Save(adapterExamens, examensTable);
+            idCurrentExamen = (int)newRow["Id"];
+        }
+
         private void AddTasks()
         {
             foreach (var t in CurrentExamen.Tasks)
@@ -384,9 +364,10 @@ namespace Examenator.ViewModels
                 row["Correct_Ans_3"] = t.Answers[2].Correct;
                 row["Answer_4"] = t.Answers[3].ValueAnswer;
                 row["Correct_Ans_4"] = t.Answers[3].Correct;
-                row["Id_Examen"] = indexExamen;
-                tasksTable.Rows.Add(row);
+                row["Id_Examen"] = idCurrentExamen;
+                tasksTable.Rows.Add(row);                
             }
+            loader.Save(adapterTasks, tasksTable);
         }
 
         public string Error => throw new NotImplementedException();

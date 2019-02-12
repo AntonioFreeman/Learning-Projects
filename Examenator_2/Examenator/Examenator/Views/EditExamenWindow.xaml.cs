@@ -21,16 +21,16 @@ namespace Examenator.Views
 {
     public partial class EditExamenWindow : Window
     {
-        public EditExamenWindow(int selectedExamen, DataSet ds, SqlDataAdapter adapterTasks)
+        public EditExamenWindow(int selectedExamen, DataTable et, Loader loader)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(ds, selectedExamen, adapterTasks);
+            DataContext = new EditExamenViewModel(et, selectedExamen, loader);
         }
 
-        public EditExamenWindow(DataSet ds, SqlDataAdapter adapterTasks, SqlDataAdapter adapterExamens)
+        public EditExamenWindow(DataTable dt, Loader loader)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(ds, adapterTasks, adapterExamens);
+            DataContext = new EditExamenViewModel(dt, loader);
         }
     }
 }

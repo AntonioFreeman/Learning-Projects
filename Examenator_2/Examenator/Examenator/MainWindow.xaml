@@ -21,7 +21,7 @@
         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Доступные экзамены:" VerticalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Height="18" Margin="221,10,219,10" Width="138"/>
         <DataGrid IsReadOnly="True" SelectedIndex ="{Binding SelectedExamen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10,0,10,10" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Row="1" ItemsSource="{Binding ExamensTable}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Subject}" Header="Название" Width="270"/>
+                <DataGridTextColumn Binding="{Binding Subj}" Header="Название" Width="270"/>
                 <DataGridTextColumn Binding="{Binding AmountTasks}" Header="Количество вопросов"/>
                 <DataGridTextColumn Binding="{Binding TimeExamen}" Header="Время экзамена"/>
             </DataGrid.Columns>

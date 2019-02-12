@@ -24,22 +24,20 @@ namespace Examenator.Views
     public partial class PasswordWindow : Window
     {
         private DataRow currentExamen;
-        private DataSet dataSet;
-        private SqlDataAdapter aT;
-        private int indexExamen;
-        public PasswordWindow(DataRow examen, DataSet ds, SqlDataAdapter adapterTasks)
+        private DataTable examensTable;
+        private Loader loader;
+        public PasswordWindow(DataRow examen, DataTable et, Loader ldr)  
         {
             InitializeComponent();
             currentExamen = examen;
-            dataSet = ds;
-            aT = adapterTasks;
-            indexExamen = ds.Tables[0].Rows.IndexOf(examen);
+            examensTable = et;
+            loader = ldr;
         }
         public void Verification(object sender, RoutedEventArgs e)
         {
-            if((string)currentExamen["Password"] == pswrd_1.Password)
+            if((string)currentExamen["Pswrd"] == pswrd_1.Password)
             {
-                var editWindow = new EditExamenWindow(indexExamen, dataSet, aT);
+                var editWindow = new EditExamenWindow((int)currentExamen["Id"], examensTable, loader);
                 editWindow.ShowDialog();
                 this.Close();
             }

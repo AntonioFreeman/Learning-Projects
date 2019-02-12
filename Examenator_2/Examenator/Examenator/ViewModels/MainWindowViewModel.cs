@@ -16,14 +16,10 @@ using System.Windows;
 namespace Examenator.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
-    {
-        string connectionString;
-        SqlDataAdapter adapterExamens;
-        SqlDataAdapter adapterTasks;
-        private DataTable tasksTable;
+    {      
         private Loader loader;
-        public DataSet Ds;
-        
+        private DataSet ds;
+        private DataRow currentExamen;
         public Result Result;
         public EditExamenWindow EditWindow;
         public PasswordWindow PasswordWindow;
@@ -40,137 +36,113 @@ namespace Examenator.ViewModels
             }
         }
 
-        //private int amountTasks;
-        //public int AmountTasks
-        //{
-        //    get { return amountTasks; }
-        //    set
-        //    {
-        //        amountTasks = value;
-        //        OnPropertyChanged("AmountTasks");
-        //    }
-        //}
+        private int amountTasks;
+        public int AmountTasks
+        {
+            get { return amountTasks; }
+            set
+            {
+                amountTasks = value;
+            }
+        }
 
-        //private int timeExamen;
-        //public int TimeExamen
-        //{
-        //    get { return timeExamen; }
-        //    set
-        //    {
-        //        timeExamen = value;
-        //        OnPropertyChanged("TimeExamen");
-        //    }
-        //}
+        private int timeExamen;
+        public int TimeExamen
+        {
+            get { return timeExamen; }
+            set
+            {
+                timeExamen = value;
+            }
+        }
 
-        private int selectedExamen = -1;
+        private int selectedExamen;
         public int SelectedExamen
         {
             get { return selectedExamen; }
             set
             {
-                selectedExamen = value;               
+                selectedExamen = value;
+                if(selectedExamen < 0)
+                {
+                    AmountTasks = 0;
+                    TimeExamen = 0;
+                }
+                else
+                {
+                    AmountTasks = (int)ExamensTable.Rows[selectedExamen]["AmountTasks"];
+                    TimeExamen = (int)ExamensTable.Rows[selectedExamen]["TimeExamen"];
+                }
                 OnPropertyChanged("SelectedExamen");
             }
         }
 
         public MainWindowViewModel()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            string sql_1 = "SELECT * FROM Examens";
-            string sql_2 = "SELECT * FROM Tasks";
-            Ds = new DataSet();
-            SqlConnection connection = null;
-            try
-            {
-                connection = new SqlConnection(connectionString);
-                SqlCommand commandLoadExamens = new SqlCommand(sql_1, connection);
-                SqlCommand commandLoadTasks = new SqlCommand(sql_2, connection);
-                adapterExamens = new SqlDataAdapter(commandLoadExamens);
-                adapterTasks = new SqlDataAdapter(commandLoadTasks);
-
-                adapterExamens.InsertCommand = new SqlCommand("sp_InsertExamen", connection);
-                adapterExamens.InsertCommand.CommandType = CommandType.StoredProcedure;
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@subject", SqlDbType.Text, 0, "Subject"));
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.NVarChar, 50, "Password"));
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@procent_3", SqlDbType.Int, 0, "Procent_3"));
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@procent_4", SqlDbType.Int, 0, "Procent_4"));
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@procent_5", SqlDbType.Int, 0, "Procent_5"));
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@amountTasks", SqlDbType.Int, 0, "AmountTasks"));
-                adapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@timeExamen", SqlDbType.Int, 0, "TimeExamen"));
-                SqlParameter parameter = adapterExamens.InsertCommand.Parameters.Add("@id", SqlDbType.Int, 0, "Id");
-                parameter.Direction = ParameterDirection.Output;
-
-                adapterTasks.InsertCommand = new SqlCommand("sp_InsertTask", connection);
-                adapterTasks.InsertCommand.CommandType = CommandType.StoredProcedure;
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@title", SqlDbType.Text, 0, "Title"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@question", SqlDbType.Text, 50, "Question"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@answer_1", SqlDbType.Text, 0, "Answer_1"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@correct_Ans_1", SqlDbType.Bit, 0, "Correct_Ans_1"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@answer_2", SqlDbType.Text, 0, "Answer_2"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@correct_Ans_2", SqlDbType.Bit, 0, "Correct_Ans_2"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@answer_3", SqlDbType.Text, 0, "Answer_3"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@correct_Ans_3", SqlDbType.Bit, 0, "Correct_Ans_3"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@answer_4", SqlDbType.Text, 0, "Answer_4"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@correct_Ans_4", SqlDbType.Bit, 0, "Correct_Ans_4"));
-                adapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@id_Examen", SqlDbType.Int, 0, "Id_Examen"));
-                SqlParameter parameterId = adapterExamens.InsertCommand.Parameters.Add("@id", SqlDbType.Int, 0, "Id");
-                parameterId.Direction = ParameterDirection.Output;
-
-                connection.Open();
-                adapterExamens.Fill(Ds);
-                Ds.Tables.Add();
-                adapterTasks.Fill(Ds.Tables[1]);
-                examensTable = Ds.Tables[0];
-
-                tasksTable = Ds.Tables[1];
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (connection != null)
-                    connection.Close();
-            }
-
-            //loader = new Loader();
-            //try 
-            //    { Examens = loader.LoadDeserialisation(); }
-            //catch
-            //    { Examens = new ObservableCollection<Examen>(); }           
+            loader = new Loader();
+            ds = loader.Load(loader.adapterExamens);
+            ExamensTable = ds.Tables[0];
+            selectedExamen = -1;
         }
 
-        private void UpdateDB()
+        private bool termAmountTask()
         {
-            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapterExamens);
-            adapterExamens.Update(examensTable);        
+            return AmountTasks > 0 ;
         }
-                
-        //private bool termAmountTask()
-        //{
-        //    return AmountTasks > 0 && AmountTasks <= SelectedExamen.Tasks.Count;
-        //}
 
-        //private bool termTimeExamen()
-        //{
-        //    return TimeExamen > 0 && AmountTasks <= 720;
-        //}
+        private bool termTimeExamen()
+        {
+            return TimeExamen > 0 && AmountTasks <= 720;
+        }
 
-        //private RelayCommand startExamenCommand;
-        //public RelayCommand StartExamenCommand
-        //{
-        //    get
-        //    {
-        //        return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
-        //        {
-        //            Result = new Result(SelectedExamen);
-        //            EnterWindow = new EnterNameWindow(Result, SelectedExamen);
-        //            EnterWindow.Show();
-        //        }, (obj) => (SelectedExamen != null && termAmountTask() && termTimeExamen())));
-        //    }
-        //}
+        private Examen CreateExamen(int idExamen)
+        {
+            DataRow examen = examensTable.Select(string.Format("Id = {0}", idExamen))[0];
+            var newExamen = new Examen();
+            newExamen.Subject = (examen["Subj"] != DBNull.Value) ? (string)examen["Subj"] : null;
+            newExamen.Password = (examen["Pswrd"] != DBNull.Value) ? (string)examen["Pswrd"] : null;
+            newExamen.Procent_3 = (int)examen["Procent_3"];
+            newExamen.Procent_4 = (int)examen["Procent_4"];
+            newExamen.Procent_5 = (int)examen["Procent_5"];
+            newExamen.AmountTask = (int)examen["AmountTasks"];
+            newExamen.TimeExamen = (int)examen["TimeExamen"];
+            newExamen.Id = (int)examen["Id"];
+
+            var tasksTable = loader.Load(loader.adapterTasks).Tables[0];
+
+            var storageTasks = tasksTable.Select(string.Format("Id_Examen = {0}", newExamen.Id));
+            foreach (var t in storageTasks)
+            {
+                var newTask = new TextTask();
+                newTask.Title = (string)t["Title"];
+                newTask.Question = (string)t["Question"];
+                newTask.Id = (int)t["Id"];
+                newTask.Id_Examen = (int)t["Id_Examen"];
+                newTask.Answers.Clear();
+                newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_1"], Correct = (bool)t["Correct_Ans_1"] });
+                newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_2"], Correct = (bool)t["Correct_Ans_2"] });
+                newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_3"], Correct = (bool)t["Correct_Ans_3"] });
+                newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_4"], Correct = (bool)t["Correct_Ans_4"] });
+                newExamen.Tasks.Add(newTask);
+            }
+            return newExamen;
+        }
+
+        private RelayCommand startExamenCommand;
+        public RelayCommand StartExamenCommand
+        {
+            get
+            {
+                return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
+                {
+                    currentExamen = examensTable.Rows[SelectedExamen];
+                    var examen = CreateExamen((int)currentExamen["Id"]);
+                    Result = new Result(examen);
+                    EnterWindow = new EnterNameWindow(Result, examen);
+                    EnterWindow.Show();
+                }, (obj) => (SelectedExamen >= 0 && termAmountTask() && termTimeExamen())));
+            }
+        }
 
         private RelayCommand addExamenCommand;
         public RelayCommand AddExamenCommand
@@ -178,8 +150,8 @@ namespace Examenator.ViewModels
             get
             {
                 return addExamenCommand ?? (addExamenCommand = new RelayCommand(obj =>
-                {                 
-                    EditWindow = new EditExamenWindow(Ds, adapterTasks, adapterExamens);
+                {
+                    EditWindow = new EditExamenWindow(ExamensTable, loader);
                     EditWindow.ShowDialog();
                 }));
             }
@@ -192,10 +164,18 @@ namespace Examenator.ViewModels
             {
                 return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
                 {
-                    DataRow currentExamen = examensTable.Rows[SelectedExamen];
-                    PasswordWindow = new PasswordWindow(currentExamen, Ds, adapterTasks); 
-                    PasswordWindow.ShowDialog();
-                }, (obj) => SelectedExamen >=0));
+                    currentExamen = examensTable.Rows[SelectedExamen];
+                if (currentExamen["Pswrd"] == DBNull.Value) 
+                    {
+                        EditWindow = new EditExamenWindow((int)currentExamen["Id"], ExamensTable, loader);
+                        EditWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        PasswordWindow = new PasswordWindow(currentExamen, ExamensTable, loader);
+                        PasswordWindow.ShowDialog();
+                    }                  
+                }, (obj) => SelectedExamen >= 0));
             }
         }
 
@@ -206,15 +186,9 @@ namespace Examenator.ViewModels
             {
                 return removeExamenCommand ?? (removeExamenCommand = new RelayCommand(obj =>
                 {
-                    examensTable.Rows.RemoveAt(SelectedExamen);
-
-                    //Examen examen = obj as Examen;
-                    //if (examen != null)
-                    //{                        
-                    //    Examens.Remove(examen);
-                    //    loader.SaveSerialisation(Examens);
-                    //}
-                }/*, (obj) => Examens.Count > 0*/));
+                    examensTable.Rows[SelectedExamen].Delete();
+                    loader.Save(loader.adapterExamens, examensTable);
+                }, (obj) => SelectedExamen >= 0));
             }
         }
                

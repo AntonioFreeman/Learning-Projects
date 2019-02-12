@@ -24,11 +24,11 @@ namespace Examenator.ViewModels
             TimeExecute = result.TimeExecute;
             CorrectAnswers = result.CorrectAnswers;
             UncorrectAnswers = result.UncorrectAnswers;
-            NotAnswered = amountTask - CorrectAnswers - UncorrectAnswers;
-            CalculationEstimate();
+            NotAnswered = amountTask - CorrectAnswers - UncorrectAnswers;            
             procent_3 = result.Procent_3;
             procent_4 = result.Procent_4;
             procent_5 = result.Procent_5;
+            CalculationEstimate();
         }
 
         private void CalculationEstimate()
