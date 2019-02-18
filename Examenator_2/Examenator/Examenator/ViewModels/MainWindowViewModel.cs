@@ -80,7 +80,7 @@ namespace Examenator.ViewModels
         public MainWindowViewModel()
         {
             loader = new Loader();
-            ds = loader.Load(loader.adapterExamens);
+            ds = loader.Load(loader.AdapterExamens);
             ExamensTable = ds.Tables[0];
             selectedExamen = -1;
         }
@@ -108,7 +108,7 @@ namespace Examenator.ViewModels
             newExamen.TimeExamen = (int)examen["TimeExamen"];
             newExamen.Id = (int)examen["Id"];
 
-            var tasksTable = loader.Load(loader.adapterTasks).Tables[0];
+            var tasksTable = loader.Load(loader.AdapterTasks).Tables[0];
 
             var storageTasks = tasksTable.Select(string.Format("Id_Examen = {0}", newExamen.Id));
             foreach (var t in storageTasks)
@@ -187,7 +187,7 @@ namespace Examenator.ViewModels
                 return removeExamenCommand ?? (removeExamenCommand = new RelayCommand(obj =>
                 {
                     examensTable.Rows[SelectedExamen].Delete();
-                    loader.Save(loader.adapterExamens, examensTable);
+                    loader.Save(loader.AdapterExamens, examensTable);
                 }, (obj) => SelectedExamen >= 0));
             }
         }

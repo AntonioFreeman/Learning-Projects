@@ -45,10 +45,10 @@ namespace Examenator.ViewModels
         public EditExamenViewModel(DataTable et, Loader ldr)
         {
             loader = ldr;
-            adapterTasks = ldr.adapterTasks;
-            adapterExamens = ldr.adapterExamens;
+            adapterTasks = ldr.AdapterTasks;
+            adapterExamens = ldr.AdapterExamens;
             examensTable = et;
-            tasksTable = ldr.Load(adapterTasks).Tables[0];
+            //tasksTable = ldr.Load(adapterTasks).Tables[0];
             CurrentExamen = new Examen();          
             CurrentTask = new TextTask();
         }
@@ -56,10 +56,12 @@ namespace Examenator.ViewModels
         public EditExamenViewModel(DataTable et, int idExamen, Loader ldr)
         {
             loader = ldr;
-            adapterTasks = ldr.adapterTasks;
+            adapterTasks = ldr.AdapterTasks;
             editFlag = true;
             idCurrentExamen = idExamen;
             examensTable = et;
+            SqlCommand commandLoadTasks = new SqlCommand(string.Format("SELECT * FROM Tasks WHERE Id_Examen = {0}", idExamen), loader.Connection);
+            adapterTasks.SelectCommand = commandLoadTasks; 
             tasksTable = ldr.Load(adapterTasks).Tables[0];
             CurrentExamen = CreateExamen(idCurrentExamen);
             CurrentTask = new TextTask();
@@ -313,6 +315,9 @@ namespace Examenator.ViewModels
                     else
                     {
                         AddExamen();
+                        SqlCommand commandLoadTasks = new SqlCommand(string.Format("SELECT * FROM Tasks WHERE Id_Examen = {0}", idCurrentExamen), loader.Connection);
+                        adapterTasks.SelectCommand = commandLoadTasks;
+                        tasksTable = loader.Load(adapterTasks).Tables[0];
                         AddTasks();
                         editFlag = true;
                         CurrentExamen = CreateExamen(idCurrentExamen);
