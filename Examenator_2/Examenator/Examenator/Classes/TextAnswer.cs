@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Examenator.Classes
 {
-    [Serializable]
     public class TextAnswer : BaseAnswer
     {
         private string valueAnswer;

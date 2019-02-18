@@ -16,14 +16,14 @@ namespace Examenator.ViewModels
 {
     public class EditExamenViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        SqlDataAdapter adapterTasks;
-        SqlDataAdapter adapterExamens;
+        private int idCurrentExamen;
         private bool editFlag = false;
-        private DataRow[] storageTasks;
-        int idCurrentExamen;
+        private SqlDataAdapter adapterTasks;
+        private SqlDataAdapter adapterExamens;
+        private DataRow[] storageTasks;       
         private Loader loader;
-        public DataTable examensTable { get; set; }
-        public DataTable tasksTable { get; set; }
+        private DataTable examensTable { get; set; }
+        private DataTable tasksTable { get; set; }
         public Examen CurrentExamen;
         public SettingWindow SettingWindow;
 

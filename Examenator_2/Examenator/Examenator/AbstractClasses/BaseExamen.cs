@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
-    [Serializable]
     public abstract class BaseExamen : IExam
     {
         public int Id { get; set; }
@@ -74,6 +73,7 @@ namespace Examenator.AbstractClasses
 
         public virtual void Assign(BaseExamen examen)
         {
+            Id = examen.Id;
             Subject = examen.Subject;
             Password = examen.Password;
             Procent_3 = examen.Procent_3;
@@ -94,7 +94,6 @@ namespace Examenator.AbstractClasses
             return cloned;
         }
 
-        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {

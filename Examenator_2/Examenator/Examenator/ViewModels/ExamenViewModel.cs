@@ -111,9 +111,9 @@ namespace Examenator.ViewModels
                     }
                     else
                     { 
-                    CurrentTask = CurrentExamen.ElementAt(countTask);
-                    countTask++;
-                    NumberTask = countTask.ToString();
+                        CurrentTask = CurrentExamen.ElementAt(countTask);
+                        countTask++;
+                        NumberTask = countTask.ToString();
                     }
                 }, (obj) => ConditionAnswer()));
             }

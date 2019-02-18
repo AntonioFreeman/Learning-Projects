@@ -20,7 +20,7 @@ namespace Examenator.ViewModels
         private Loader loader;
         private DataSet ds;
         private DataRow currentExamen;
-        public Result Result;
+        private Result Result;
         public EditExamenWindow EditWindow;
         public PasswordWindow PasswordWindow;
         public EnterNameWindow EnterWindow;

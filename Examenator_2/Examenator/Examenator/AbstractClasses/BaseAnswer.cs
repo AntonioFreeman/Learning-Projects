@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
-    [Serializable]
     public abstract class BaseAnswer : IAnswer
     {
-        public int Id { get; set; }
         private bool correct;
         public bool Correct
         {
@@ -24,21 +22,9 @@ namespace Examenator.AbstractClasses
             }
         }
 
-        private bool check;
-        public bool Check
-        {
-            get { return check; }
-            set
-            {
-                check = value;
-                OnPropertyChanged("Check");
-            }
-        }
-
         public virtual void Assign(BaseAnswer answer)
             {                
                 Correct = answer.Correct;
-                Check = answer.Check;
             }
 
         public virtual BaseAnswer Clone()
@@ -48,7 +34,6 @@ namespace Examenator.AbstractClasses
                 return cloned;
             }
 
-        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {

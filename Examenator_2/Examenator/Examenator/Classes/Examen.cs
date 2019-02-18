@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Examenator.Classes
 {
-    [Serializable]
     public class Examen : BaseExamen
     {
         public int AmountTask { get; set; }

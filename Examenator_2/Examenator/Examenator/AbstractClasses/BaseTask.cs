@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
-    [Serializable]
     public abstract class BaseTask : ITask
     {
         public int Id { get; set; }
@@ -50,13 +49,10 @@ namespace Examenator.AbstractClasses
             }
         }
 
-        //public override string ToString()
-        //{
-        //    return Title;
-        //}
-
         public virtual void Assign(BaseTask task)
         {
+            Id = task.Id;
+            Id_Examen = task.Id_Examen;
             Title = task.Title;
             Question = task.Question;
             var answers = new ObservableCollection<TextAnswer>();
@@ -74,7 +70,6 @@ namespace Examenator.AbstractClasses
             return cloned;
         }
 
-        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property = "")
         {

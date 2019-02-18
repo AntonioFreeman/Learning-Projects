@@ -17,22 +17,16 @@ namespace Examenator.Classes
     {
         private string textForSave;
         private string connectionString;
-        public DataSet Ds { get; set; }
-        string sql_1 = "SELECT * FROM Examens";
-        string sql_2 = "SELECT * FROM Tasks";
-        SqlConnection connection;
+        private SqlConnection connection;
         public SqlDataAdapter adapterExamens { get; private set; }
         public SqlDataAdapter adapterTasks { get; private set; }
-
 
         public Loader()
         {
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            Ds = new DataSet();
-            connection = null;
             connection = new SqlConnection(connectionString);
                                            
-            SqlCommand commandLoadExamens = new SqlCommand(sql_1, connection);
+            SqlCommand commandLoadExamens = new SqlCommand("SELECT * FROM Examens", connection);
             adapterExamens = new SqlDataAdapter(commandLoadExamens);
             adapterExamens.DeleteCommand = new SqlCommand("DELETE FROM Examens WHERE Id = @Id; DELETE FROM Tasks WHERE Id_Examen = @Id", connection);
             adapterExamens.DeleteCommand.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 0, "Id"));
@@ -48,7 +42,7 @@ namespace Examenator.Classes
             SqlParameter parameter = adapterExamens.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id");
             parameter.Direction = ParameterDirection.Output;
 
-            SqlCommand commandLoadTasks = new SqlCommand(sql_2, connection);
+            SqlCommand commandLoadTasks = new SqlCommand("SELECT * FROM Tasks", connection);
             adapterTasks = new SqlDataAdapter(commandLoadTasks);
             adapterTasks.DeleteCommand = new SqlCommand("DELETE FROM Tasks WHERE Id = @Id", connection);
             adapterTasks.DeleteCommand.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 0, "Id"));

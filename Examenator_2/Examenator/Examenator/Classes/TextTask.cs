@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Examenator.Classes
 {
-    [Serializable]
     public class TextTask : BaseTask
     {
         public TextTask()
