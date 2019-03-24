@@ -48,7 +48,6 @@ namespace Examenator.ViewModels
             adapterTasks = ldr.AdapterTasks;
             adapterExamens = ldr.AdapterExamens;
             examensTable = et;
-            //tasksTable = ldr.Load(adapterTasks).Tables[0];
             CurrentExamen = new Examen();          
             CurrentTask = new TextTask();
         }
