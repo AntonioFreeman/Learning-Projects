@@ -1,4 +1,4 @@
-﻿using Examenator.Interfaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
-    public abstract class BaseExamen : IExam
+    public abstract class BaseExam : INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -71,25 +71,25 @@ namespace Examenator.AbstractClasses
             }
         }
 
-        public virtual void Assign(BaseExamen examen)
+        public virtual void Assign(BaseExam exam)
         {
-            Id = examen.Id;
-            Subject = examen.Subject;
-            Password = examen.Password;
-            Procent_3 = examen.Procent_3;
-            Procent_4 = examen.Procent_4;
-            Procent_5 = examen.Procent_5;
+            Id = exam.Id;
+            Subject = exam.Subject;
+            Password = exam.Password;
+            Procent_3 = exam.Procent_3;
+            Procent_4 = exam.Procent_4;
+            Procent_5 = exam.Procent_5;
             var tasks = new ObservableCollection<BaseTask>();
-            foreach (var e in examen.Tasks)
+            foreach (var e in exam.Tasks)
             {
                 if (e != null) tasks.Add(e.Clone());
             }
             Tasks = tasks;
         }
 
-        public virtual BaseExamen Clone()
+        public virtual BaseExam Clone()
         {
-            var cloned = (BaseExamen)Activator.CreateInstance(GetType());
+            var cloned = (BaseExam)Activator.CreateInstance(GetType());
             cloned.Assign(this);
             return cloned;
         }

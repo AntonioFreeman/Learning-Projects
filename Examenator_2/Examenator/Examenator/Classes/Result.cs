@@ -18,14 +18,14 @@ namespace Examenator.Classes
         public int Procent_4 { get; set; }
         public int Procent_5 { get; set; }
 
-        public Result(Examen examen)
+        public Result(Exam exam)
         {
             FirstName = "";
             SecondName = "";
-            AmountTask = examen.AmountTask;
-            Procent_3 = examen.Procent_3;
-            Procent_4 = examen.Procent_4;
-            Procent_5 = examen.Procent_5;
+            AmountTask = exam.AmountTask;
+            Procent_3 = exam.Procent_3;
+            Procent_4 = exam.Procent_4;
+            Procent_5 = exam.Procent_5;
         }
     }
 }

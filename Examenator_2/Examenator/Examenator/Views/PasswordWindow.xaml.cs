@@ -23,21 +23,21 @@ namespace Examenator.Views
     /// </summary>
     public partial class PasswordWindow : Window
     {
-        private DataRow currentExamen;
-        private DataTable examensTable;
+        private DataRow currentExam;
+        private DataTable examsTable;
         private Loader loader;
-        public PasswordWindow(DataRow examen, DataTable et, Loader ldr)  
+        public PasswordWindow(DataRow currentExam, DataTable examsTable, Loader loader)  
         {
             InitializeComponent();
-            currentExamen = examen;
-            examensTable = et;
-            loader = ldr;
+            this.currentExam = currentExam;
+            this.examsTable = examsTable;
+            this.loader = loader;
         }
         public void Verification(object sender, RoutedEventArgs e)
         {
-            if((string)currentExamen["Pswrd"] == pswrd_1.Password)
+            if((string)currentExam["Password"] == pswrd_1.Password)
             {
-                var editWindow = new EditExamenWindow((int)currentExamen["Id"], examensTable, loader);
+                var editWindow = new EditExamWindow((int)currentExam["Id"], examsTable, loader);
                 editWindow.ShowDialog();
                 this.Close();
             }

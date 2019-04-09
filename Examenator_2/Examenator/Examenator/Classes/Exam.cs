@@ -9,32 +9,32 @@ using System.Threading.Tasks;
 
 namespace Examenator.Classes
 {
-    public class Examen : BaseExamen
+    public class Exam : BaseExam
     {
         public int AmountTask { get; set; }
-        public int TimeExamen { get; set; }
+        public int TimeExam { get; set; }
        
-        public Examen()
+        public Exam()
         {
             Subject = "Новый экзамен";
             Tasks = new ObservableCollection<BaseTask>();
             AmountTask = 0;
-            TimeExamen = 0;
+            TimeExam = 0;
             Procent_3 = 55;
             Procent_4 = 70;
             Procent_5 = 85;
         }
         
-        override public void Assign(BaseExamen examen)
+        override public void Assign(BaseExam exam)
         {
-            base.Assign(examen);
-            AmountTask = ((Examen)examen).AmountTask;
-            TimeExamen = ((Examen)examen).TimeExamen;
+            base.Assign(exam);
+            AmountTask = ((Exam)exam).AmountTask;
+            TimeExam = ((Exam)exam).TimeExam;
         }
 
-        override public BaseExamen Clone()
+        override public BaseExam Clone()
         {
-            var cloned = (Examen)Activator.CreateInstance(GetType());
+            var cloned = (Exam)Activator.CreateInstance(GetType());
             cloned.Assign(this);
             return cloned;
         }

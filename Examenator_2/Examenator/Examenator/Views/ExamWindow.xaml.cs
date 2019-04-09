@@ -17,16 +17,16 @@ using System.Windows.Shapes;
 namespace Examenator.Views
 {
     /// <summary>
-    /// Interaction logic for ExamenWindow.xaml
+    /// Interaction logic for ExamWindow.xaml
     /// </summary>
-    public partial class ExamenWindow : Window
+    public partial class ExamWindow : Window
     {
-        public ExamenWindow(Result result, Examen examen)
+        public ExamWindow(Result result, Exam exam)
         {
             InitializeComponent();
-            var examenVM = new ExamenViewModel(result, examen);
-            DataContext = examenVM;
-            examenVM.CloseHandler += (sender, args) => this.Close();
+            var examVM = new ExamViewModel(result, exam);
+            DataContext = examVM;
+            examVM.CloseHandler += (sender, args) => this.Close();
         }
     }
 }

@@ -12,18 +12,18 @@ namespace Examenator.ViewModels
 {
     public class SettingViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        private Examen currentExamen;
-        private Examen baseExamen;
+        private Exam currentExam;
+        private Exam baseExam;
 
         public EventHandler CloseHandler;
 
-        public SettingViewModel(Examen examen)
+        public SettingViewModel(Exam exam)
         {
-            baseExamen = examen;
-            currentExamen = (Examen)examen.Clone();
-            Procent_3 = currentExamen.Procent_3;
-            Procent_4 = currentExamen.Procent_4;
-            Procent_5 = currentExamen.Procent_5;
+            baseExam = exam;
+            currentExam = (Exam)exam.Clone();
+            Procent_3 = currentExam.Procent_3;
+            Procent_4 = currentExam.Procent_4;
+            Procent_5 = currentExam.Procent_5;
         }
 
         private int procent_3;
@@ -67,9 +67,9 @@ namespace Examenator.ViewModels
                 return saveCommand ?? (saveCommand = new RelayCommand(obj =>
                 {
                     {
-                        baseExamen.Procent_3 = Procent_3;
-                        baseExamen.Procent_4 = Procent_4;
-                        baseExamen.Procent_5 = Procent_5;
+                        baseExam.Procent_3 = Procent_3;
+                        baseExam.Procent_4 = Procent_4;
+                        baseExam.Procent_5 = Procent_5;
                         var handler = CloseHandler;
                         if (handler != null) handler.Invoke(this, EventArgs.Empty);
                     }

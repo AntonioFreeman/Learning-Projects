@@ -1,5 +1,4 @@
 ﻿using Examenator.Classes;
-using Examenator.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
-    public abstract class BaseTask : ITask
+    public abstract class BaseTask : INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public int Id_Examen { get; set; }
+        public int Id_Exam { get; set; }
 
         private string title;
         public string Title
@@ -52,7 +51,7 @@ namespace Examenator.AbstractClasses
         public virtual void Assign(BaseTask task)
         {
             Id = task.Id;
-            Id_Examen = task.Id_Examen;
+            Id_Exam = task.Id_Exam;
             Title = task.Title;
             Question = task.Question;
             var answers = new ObservableCollection<TextAnswer>();

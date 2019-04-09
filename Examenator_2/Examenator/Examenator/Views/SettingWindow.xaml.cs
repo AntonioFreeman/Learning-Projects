@@ -21,19 +21,19 @@ namespace Examenator.Views
     /// </summary>
     public partial class SettingWindow : Window
     {
-        private Examen currentExamen;
-        public SettingWindow(Examen examen)
+        private Exam currentExam;
+        public SettingWindow(Exam currentExam)
         {
             InitializeComponent();
-            currentExamen = examen;
-            var settingVM = new SettingViewModel(examen);
+            this.currentExam = currentExam;
+            var settingVM = new SettingViewModel(currentExam);
             DataContext = settingVM;            
             settingVM.CloseHandler += (sender, args) => this.Close(); 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            currentExamen.Password = pswrd.Password;
+            currentExam.Password = pswrd.Password;
         }
     }
 }

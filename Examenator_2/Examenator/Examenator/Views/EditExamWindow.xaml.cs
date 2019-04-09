@@ -19,18 +19,18 @@ using System.Windows.Shapes;
 
 namespace Examenator.Views
 {
-    public partial class EditExamenWindow : Window
+    public partial class EditExamWindow : Window
     {
-        public EditExamenWindow(int selectedExamen, DataTable et, Loader loader)
+        public EditExamWindow(int selectedExam, DataTable et, Loader loader)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(et, selectedExamen, loader);
+            DataContext = new EditExamViewModel(et, selectedExam, loader);
         }
 
-        public EditExamenWindow(DataTable dt, Loader loader)
+        public EditExamWindow(DataTable dt, Loader loader)
         {
             InitializeComponent();
-            DataContext = new EditExamenViewModel(dt, loader);
+            DataContext = new EditExamViewModel(dt, loader);
         }
     }
 }

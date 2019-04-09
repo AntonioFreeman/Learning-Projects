@@ -11,58 +11,58 @@ using System.Windows.Threading;
 
 namespace Examenator.ViewModels
 {
-    public class ExamenViewModel: INotifyPropertyChanged
+    public class ExamViewModel: INotifyPropertyChanged
     {
         private int hours = 0;
         private int minutes = 0;
         private int seconds = 0;
         private int countTask = 1;
-        private int timeEndOfExamen;               
+        private int timeEndOfExam;               
         public Result Result {get; set; }
         public EventHandler CloseHandler; 
-        public DispatcherTimer TimeExamen;       
+        public DispatcherTimer TimeExam;       
 
-        public ExamenViewModel(Result result, Examen examen)
+        public ExamViewModel(Result result, Exam exam)
         {
-            Subject = examen.Subject;
+            Subject = exam.Subject;
             Result = result;
-            CreateExamen(examen);
-            CurrentTask = CurrentExamen.ElementAt(0);
+            CreateExam(exam);
+            CurrentTask = CurrentExam.ElementAt(0);
             NumberTask = countTask.ToString();
-            timeEndOfExamen = examen.TimeExamen;
+            timeEndOfExam = exam.TimeExam;
             RunTimer();            
         }
         
         public void RunTimer()
         {
-            TimeExamen= new DispatcherTimer();
-            TimeExamen.Tick += new EventHandler(TimeExamen_Tick);
-            TimeExamen.Interval = new TimeSpan(0, 0, 1);
-            TimeExamen.Start();
+            TimeExam= new DispatcherTimer();
+            TimeExam.Tick += new EventHandler(TimeExam_Tick);
+            TimeExam.Interval = new TimeSpan(0, 0, 1);
+            TimeExam.Start();
         }
        
-        public void EndExamen()
+        public void EndExam()
         {
-            TimeExamen.Stop();
+            TimeExam.Stop();
             Result.TimeExecute = new TimeSpan (hours, minutes, seconds);
             var resultWindow = new ResultWindow(Result);
             resultWindow.Show();
         }
 
-        private void TimeExamen_Tick(object sender, EventArgs e)
+        private void TimeExam_Tick(object sender, EventArgs e)
         {
             seconds++;
             if (seconds == 60) { minutes++; seconds = 0; }
             if (minutes == 60) { hours++; minutes = 0; }
-            if (hours * 60 + minutes == timeEndOfExamen) EndExamen();
+            if (hours * 60 + minutes == timeEndOfExam) EndExam();
             ElapsedTime = string.Format("Прошло времени: {0}:{1}:{2}", hours, minutes, seconds);
         }
 
-        private void CreateExamen (Examen examen)
+        private void CreateExam (Exam exam)
         {
             Random random = new Random();
-            int amountTask =examen.AmountTask;
-            CurrentExamen = new List<TextTask>();
+            int amountTask =exam.AmountTask;
+            CurrentExam = new List<TextTask>();
             var list = new List<TextTask>();
             var usedIndexes = new int[amountTask+1];
             for(int i = 0; i<amountTask; i++)
@@ -70,12 +70,12 @@ namespace Examenator.ViewModels
                 int index;                
                 do index = random.Next(1, amountTask+1);
                 while (usedIndexes.Contains(index));               
-                list.Add((TextTask)examen.Tasks.ElementAt(index - 1));
+                list.Add((TextTask)exam.Tasks.ElementAt(index - 1));
                 usedIndexes[index] = index;                
             }
             foreach(var t in list)
             {
-                CurrentExamen.Add((TextTask)t.Clone());
+                CurrentExam.Add((TextTask)t.Clone());
             }
         }
 
@@ -103,15 +103,15 @@ namespace Examenator.ViewModels
                         Result.UncorrectAnswers++;
                     }
 
-                    if (countTask == CurrentExamen.Count)
+                    if (countTask == CurrentExam.Count)
                     {
-                        EndExamen();
+                        EndExam();
                         var handler = CloseHandler;
                         if (handler != null) handler.Invoke(this, EventArgs.Empty);
                     }
                     else
                     { 
-                        CurrentTask = CurrentExamen.ElementAt(countTask);
+                        CurrentTask = CurrentExam.ElementAt(countTask);
                         countTask++;
                         NumberTask = countTask.ToString();
                     }
@@ -162,14 +162,14 @@ namespace Examenator.ViewModels
             }
         }
 
-        private List<TextTask> currentExamen;
-        public List<TextTask> CurrentExamen
+        private List<TextTask> currentExam;
+        public List<TextTask> CurrentExam
         {
-            get { return currentExamen; }
+            get { return currentExam; }
             set
             {
-                currentExamen = value;
-                OnPropertyChanged("CurrentExamen");
+                currentExam = value;
+                OnPropertyChanged("CurrentExam");
             }
         }
 

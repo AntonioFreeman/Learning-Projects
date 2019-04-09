@@ -19,20 +19,20 @@ namespace Examenator.ViewModels
     {      
         private Loader loader;
         private DataSet ds;
-        private DataRow currentExamen;
+        private DataRow currentExam;
         private Result Result;
-        public EditExamenWindow EditWindow;
+        public EditExamWindow EditWindow;
         public PasswordWindow PasswordWindow;
         public EnterNameWindow EnterWindow;
 
-        private DataTable examensTable;
-        public DataTable ExamensTable
+        private DataTable examsTable;
+        public DataTable ExamsTable
         {
-            get { return examensTable; }
+            get { return examsTable; }
             set
             {
-                examensTable = value;
-                OnPropertyChanged("ExamensTable");
+                examsTable = value;
+                OnPropertyChanged("ExamsTable");
             }
         }
 
@@ -46,43 +46,43 @@ namespace Examenator.ViewModels
             }
         }
 
-        private int timeExamen;
-        public int TimeExamen
+        private int timeExam;
+        public int TimeExam
         {
-            get { return timeExamen; }
+            get { return timeExam; }
             set
             {
-                timeExamen = value;
+                timeExam = value;
             }
         }
 
-        private int selectedExamen;
-        public int SelectedExamen
+        private int selectedExam;
+        public int SelectedExam
         {
-            get { return selectedExamen; }
+            get { return selectedExam; }
             set
             {
-                selectedExamen = value;
-                if(selectedExamen < 0)
+                selectedExam = value;
+                if(selectedExam < 0)
                 {
                     AmountTasks = 0;
-                    TimeExamen = 0;
+                    TimeExam = 0;
                 }
                 else
                 {
-                    AmountTasks = (int)ExamensTable.Rows[selectedExamen]["AmountTasks"];
-                    TimeExamen = (int)ExamensTable.Rows[selectedExamen]["TimeExamen"];
+                    AmountTasks = (int)ExamsTable.Rows[selectedExam]["AmountTasks"];
+                    TimeExam = (int)ExamsTable.Rows[selectedExam]["TimeExam"];
                 }
-                OnPropertyChanged("SelectedExamen");
+                OnPropertyChanged("SelectedExam");
             }
         }
 
         public MainWindowViewModel()
         {
             loader = new Loader();
-            ds = loader.Load(loader.AdapterExamens);
-            ExamensTable = ds.Tables[0];
-            selectedExamen = -1;
+            ds = loader.Load(loader.AdapterExams);
+            ExamsTable = ds.Tables[0];
+            selectedExam = -1;
         }
 
         private bool termAmountTask()
@@ -90,105 +90,105 @@ namespace Examenator.ViewModels
             return AmountTasks > 0 ;
         }
 
-        private bool termTimeExamen()
+        private bool termTimeExam()
         {
-            return TimeExamen > 0 && AmountTasks <= 720;
+            return TimeExam > 0 && AmountTasks <= 720;
         }
 
-        private Examen CreateExamen(int idExamen)
+        private Exam CreateExam(int idExam)
         {
-            DataRow examen = examensTable.Select(string.Format("Id = {0}", idExamen))[0];
-            var newExamen = new Examen();
-            newExamen.Subject = (examen["Subj"] != DBNull.Value) ? (string)examen["Subj"] : null;
-            newExamen.Password = (examen["Pswrd"] != DBNull.Value) ? (string)examen["Pswrd"] : null;
-            newExamen.Procent_3 = (int)examen["Procent_3"];
-            newExamen.Procent_4 = (int)examen["Procent_4"];
-            newExamen.Procent_5 = (int)examen["Procent_5"];
-            newExamen.AmountTask = (int)examen["AmountTasks"];
-            newExamen.TimeExamen = (int)examen["TimeExamen"];
-            newExamen.Id = (int)examen["Id"];
+            DataRow exam = examsTable.Select(string.Format("Id = {0}", idExam))[0];
+            var newExam = new Exam();
+            newExam.Subject = (exam["Subject"] != DBNull.Value) ? (string)exam["Subject"] : null;
+            newExam.Password = (exam["Password"] != DBNull.Value) ? (string)exam["Password"] : null;
+            newExam.Procent_3 = (int)exam["Procent_3"];
+            newExam.Procent_4 = (int)exam["Procent_4"];
+            newExam.Procent_5 = (int)exam["Procent_5"];
+            newExam.AmountTask = (int)exam["AmountTasks"];
+            newExam.TimeExam = (int)exam["TimeExam"];
+            newExam.Id = (int)exam["Id"];
 
             var tasksTable = loader.Load(loader.AdapterTasks).Tables[0];
 
-            var storageTasks = tasksTable.Select(string.Format("Id_Examen = {0}", newExamen.Id));
+            var storageTasks = tasksTable.Select(string.Format("Id_Exam = {0}", newExam.Id));
             foreach (var t in storageTasks)
             {
                 var newTask = new TextTask();
                 newTask.Title = (string)t["Title"];
                 newTask.Question = (string)t["Question"];
                 newTask.Id = (int)t["Id"];
-                newTask.Id_Examen = (int)t["Id_Examen"];
+                newTask.Id_Exam = (int)t["Id_Exam"];
                 newTask.Answers.Clear();
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_1"], Correct = (bool)t["Correct_Ans_1"] });
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_2"], Correct = (bool)t["Correct_Ans_2"] });
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_3"], Correct = (bool)t["Correct_Ans_3"] });
                 newTask.Answers.Add(new TextAnswer() { ValueAnswer = (string)t["Answer_4"], Correct = (bool)t["Correct_Ans_4"] });
-                newExamen.Tasks.Add(newTask);
+                newExam.Tasks.Add(newTask);
             }
-            return newExamen;
+            return newExam;
         }
 
-        private RelayCommand startExamenCommand;
-        public RelayCommand StartExamenCommand
+        private RelayCommand startExamCommand;
+        public RelayCommand StartExamCommand
         {
             get
             {
-                return startExamenCommand ?? (startExamenCommand = new RelayCommand(obj =>
+                return startExamCommand ?? (startExamCommand = new RelayCommand(obj =>
                 {
-                    currentExamen = examensTable.Rows[SelectedExamen];
-                    var examen = CreateExamen((int)currentExamen["Id"]);
-                    Result = new Result(examen);
-                    EnterWindow = new EnterNameWindow(Result, examen);
+                    currentExam = examsTable.Rows[SelectedExam];
+                    var exam = CreateExam((int)currentExam["Id"]);
+                    Result = new Result(exam);
+                    EnterWindow = new EnterNameWindow(Result, exam);
                     EnterWindow.Show();
-                }, (obj) => (SelectedExamen >= 0 && termAmountTask() && termTimeExamen())));
+                }, (obj) => (SelectedExam >= 0 && termAmountTask() && termTimeExam())));
             }
         }
 
-        private RelayCommand addExamenCommand;
-        public RelayCommand AddExamenCommand
+        private RelayCommand addExamCommand;
+        public RelayCommand AddExamCommand
         {
             get
             {
-                return addExamenCommand ?? (addExamenCommand = new RelayCommand(obj =>
+                return addExamCommand ?? (addExamCommand = new RelayCommand(obj =>
                 {
-                    EditWindow = new EditExamenWindow(ExamensTable, loader);
+                    EditWindow = new EditExamWindow(ExamsTable, loader);
                     EditWindow.ShowDialog();
                 }));
             }
         }
 
-        private RelayCommand editExamenCommand;
-        public RelayCommand EditExamenCommand
+        private RelayCommand editExamCommand;
+        public RelayCommand EditExamCommand
         {
             get
             {
-                return editExamenCommand ?? (editExamenCommand = new RelayCommand(obj =>
+                return editExamCommand ?? (editExamCommand = new RelayCommand(obj =>
                 {
-                    currentExamen = examensTable.Rows[SelectedExamen];
-                if (currentExamen["Pswrd"] == DBNull.Value) 
+                    currentExam = examsTable.Rows[SelectedExam];
+                if (currentExam["Password"] == DBNull.Value) 
                     {
-                        EditWindow = new EditExamenWindow((int)currentExamen["Id"], ExamensTable, loader);
+                        EditWindow = new EditExamWindow((int)currentExam["Id"], ExamsTable, loader);
                         EditWindow.ShowDialog();
                     }
                     else
                     {
-                        PasswordWindow = new PasswordWindow(currentExamen, ExamensTable, loader);
+                        PasswordWindow = new PasswordWindow(currentExam, ExamsTable, loader);
                         PasswordWindow.ShowDialog();
                     }                  
-                }, (obj) => SelectedExamen >= 0));
+                }, (obj) => SelectedExam >= 0));
             }
         }
 
-        private RelayCommand removeExamenCommand;
-        public RelayCommand RemoveExamenCommand
+        private RelayCommand removeExamCommand;
+        public RelayCommand RemoveExamCommand
         {
             get
             {
-                return removeExamenCommand ?? (removeExamenCommand = new RelayCommand(obj =>
+                return removeExamCommand ?? (removeExamCommand = new RelayCommand(obj =>
                 {
-                    examensTable.Rows[SelectedExamen].Delete();
-                    loader.Save(loader.AdapterExamens, examensTable);
-                }, (obj) => SelectedExamen >= 0));
+                    examsTable.Rows[SelectedExam].Delete();
+                    loader.Save(loader.AdapterExams, examsTable);
+                }, (obj) => SelectedExam >= 0));
             }
         }
                

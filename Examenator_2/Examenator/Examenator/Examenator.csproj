@@ -62,20 +62,20 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Loader.cs" />
     <Compile Include="Classes\Result.cs" />
-    <Compile Include="ViewModels\EditExamenViewModel.cs" />
+    <Compile Include="ViewModels\EditExamViewModel.cs" />
     <Compile Include="ViewModels\EnterNameViewModel.cs" />
-    <Compile Include="ViewModels\ExamenViewModel.cs" />
+    <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ResultViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
-    <Compile Include="Views\EditExamenWindow.xaml.cs">
-      <DependentUpon>EditExamenWindow.xaml</DependentUpon>
+    <Compile Include="Views\EditExamWindow.xaml.cs">
+      <DependentUpon>EditExamWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnterNameWindow.xaml.cs">
       <DependentUpon>EnterNameWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExamenWindow.xaml.cs">
-      <DependentUpon>ExamenWindow.xaml</DependentUpon>
+    <Compile Include="Views\ExamWindow.xaml.cs">
+      <DependentUpon>ExamWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
@@ -91,24 +91,21 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="AbstractClasses\BaseAnswer.cs" />
-    <Compile Include="AbstractClasses\BaseExamen.cs" />
+    <Compile Include="AbstractClasses\BaseExam.cs" />
     <Compile Include="AbstractClasses\BaseTask.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Examen.cs" />
+    <Compile Include="Classes\Exam.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\TextAnswer.cs" />
     <Compile Include="Classes\TextTask.cs" />
-    <Compile Include="Interfaces\IAnswer .cs" />
-    <Compile Include="Interfaces\IExam.cs" />
-    <Compile Include="Interfaces\ITask.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\EditExamenWindow.xaml">
+    <Page Include="Views\EditExamWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,7 +113,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExamenWindow.xaml">
+    <Page Include="Views\ExamWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

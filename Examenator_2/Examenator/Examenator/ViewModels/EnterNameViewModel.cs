@@ -12,14 +12,14 @@ namespace Examenator.ViewModels
     public class EnterNameViewModel: INotifyPropertyChanged
     {
         private Result currentResult;
-        private Examen currentExamen;
+        private Exam currentExam;
         public EventHandler CloseHandler;
-        public ExamenWindow ExamenWindow;
+        public ExamWindow ExamWindow;
                 
-        public EnterNameViewModel(Result result, Examen examen)
+        public EnterNameViewModel(Result currentResult, Exam currentExam)
         {
-            currentResult = result;
-            currentExamen = examen;
+            this.currentResult = currentResult;
+            this.currentExam = currentExam;
         }
 
         public string FirstName
@@ -49,8 +49,8 @@ namespace Examenator.ViewModels
             {
                 return okCommand ?? (okCommand = new RelayCommand(obj =>
                 {
-                    ExamenWindow = new ExamenWindow(currentResult, currentExamen);
-                    ExamenWindow.Show();
+                    ExamWindow = new ExamWindow(currentResult, currentExam);
+                    ExamWindow.Show();
                     var handler = CloseHandler;
                     if (handler != null) handler.Invoke(this, EventArgs.Empty);
                 }, obj => FirstName.Length>0 && SecondName.Length>0));

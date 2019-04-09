@@ -18,7 +18,7 @@ namespace Examenator.Classes
         private string textForSave;
         private string connectionString;
         public SqlConnection Connection { get; private set; }
-        public SqlDataAdapter AdapterExamens { get; private set; }
+        public SqlDataAdapter AdapterExams { get; private set; }
         public SqlDataAdapter AdapterTasks { get; private set; }
 
         public Loader()
@@ -26,20 +26,20 @@ namespace Examenator.Classes
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             Connection = new SqlConnection(connectionString);
                                            
-            SqlCommand commandLoadExamens = new SqlCommand("SELECT * FROM Examens", Connection);
-            AdapterExamens = new SqlDataAdapter(commandLoadExamens);
-            AdapterExamens.DeleteCommand = new SqlCommand("DELETE FROM Examens WHERE Id = @Id; DELETE FROM Tasks WHERE Id_Examen = @Id", Connection);
-            AdapterExamens.DeleteCommand.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 0, "Id"));
-            AdapterExamens.InsertCommand = new SqlCommand("sp_InsertExamen", Connection);           
-            AdapterExamens.InsertCommand.CommandType = CommandType.StoredProcedure;
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@subject", SqlDbType.Text, 0, "Subj"));
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.NVarChar, 50, "Pswrd"));
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@procent_3", SqlDbType.Int, 0, "Procent_3"));
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@procent_4", SqlDbType.Int, 0, "Procent_4"));
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@procent_5", SqlDbType.Int, 0, "Procent_5"));
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@amountTasks", SqlDbType.Int, 0, "AmountTasks"));
-            AdapterExamens.InsertCommand.Parameters.Add(new SqlParameter("@timeExamen", SqlDbType.Int, 0, "TimeExamen"));
-            SqlParameter parameter = AdapterExamens.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id");
+            SqlCommand commandLoadExams = new SqlCommand("SELECT * FROM Exams", Connection);
+            AdapterExams = new SqlDataAdapter(commandLoadExams);
+            AdapterExams.DeleteCommand = new SqlCommand("DELETE FROM Exams WHERE Id = @Id; DELETE FROM Tasks WHERE Id_Exam = @Id", Connection);
+            AdapterExams.DeleteCommand.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int, 0, "Id"));
+            AdapterExams.InsertCommand = new SqlCommand("sp_InsertExam", Connection);           
+            AdapterExams.InsertCommand.CommandType = CommandType.StoredProcedure;
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@subject", SqlDbType.Text, 0, "Subject"));
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.NVarChar, 50, "Password"));
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@procent_3", SqlDbType.Int, 0, "Procent_3"));
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@procent_4", SqlDbType.Int, 0, "Procent_4"));
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@procent_5", SqlDbType.Int, 0, "Procent_5"));
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@amountTasks", SqlDbType.Int, 0, "AmountTasks"));
+            AdapterExams.InsertCommand.Parameters.Add(new SqlParameter("@timeExam", SqlDbType.Int, 0, "TimeExam"));
+            SqlParameter parameter = AdapterExams.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id");
             parameter.Direction = ParameterDirection.Output;
 
             SqlCommand commandLoadTasks = new SqlCommand("SELECT * FROM Tasks", Connection);
@@ -58,7 +58,7 @@ namespace Examenator.Classes
             AdapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@correct_Ans_3", SqlDbType.Bit, 0, "Correct_Ans_3"));
             AdapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@answer_4", SqlDbType.Text, 0, "Answer_4"));
             AdapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@correct_Ans_4", SqlDbType.Bit, 0, "Correct_Ans_4"));
-            AdapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@id_Examen", SqlDbType.Int, 0, "Id_Examen"));
+            AdapterTasks.InsertCommand.Parameters.Add(new SqlParameter("@id_Exam", SqlDbType.Int, 0, "Id_Exam"));
             SqlParameter parameterId = AdapterTasks.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id");
             parameterId.Direction = ParameterDirection.Output;
         }

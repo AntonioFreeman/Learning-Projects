@@ -21,10 +21,10 @@ namespace Examenator.Views
     /// </summary>
     public partial class EnterNameWindow : Window
     {
-        public EnterNameWindow(Result result, Examen examen)
+        public EnterNameWindow(Result result, Exam exam)
         {
             InitializeComponent();
-            var enterNameVM = new EnterNameViewModel(result, examen);
+            var enterNameVM = new EnterNameViewModel(result, exam);
             DataContext = enterNameVM;
             enterNameVM.CloseHandler += (sender, args) => this.Close();
         }

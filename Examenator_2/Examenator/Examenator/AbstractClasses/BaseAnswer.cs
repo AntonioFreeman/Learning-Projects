@@ -1,4 +1,4 @@
-﻿using Examenator.Interfaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Examenator.AbstractClasses
 {
-    public abstract class BaseAnswer : IAnswer
+    public abstract class BaseAnswer : INotifyPropertyChanged
     {
         private bool correct;
         public bool Correct
